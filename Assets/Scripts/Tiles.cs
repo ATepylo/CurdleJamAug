@@ -24,6 +24,12 @@ public class Tiles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+            Rotate();
+    }
+
+    public void Rotate()
+    {
+        transform.rotation *= Quaternion.Euler(0, 0, -90); 
     }
 }
