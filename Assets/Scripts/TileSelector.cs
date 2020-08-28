@@ -11,15 +11,15 @@ public class TileSelector : MonoBehaviour
     public Transform movePoint;
     Vector2 _movement;
     Tiles _currentTile;
-    private Vector3 _rot = new Vector3(0.0f,0.0f,-90);
+    private Vector3 _rot = new Vector3(0.0f, 0.0f, -90);
     float buttonCoolDown = 0.25f;
     bool _canTurn = true;
     private void OnEnable()
     {
+        _currentTile = null;
         movePoint.parent = null;
     }
 
-    // Update is called once per frame
     void Update()
     {
         _movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -27,20 +27,17 @@ public class TileSelector : MonoBehaviour
         if (Vector3.Distance(transform.position, movePoint.position) <= 0.5f)
         {
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
-            {
                 movePoint.position += new Vector3(_movement.x * 0.5f, 0.0f, 0.0f);
-            }
+            //movePoint.transform.DOMoveX(movePoint.transform.position.x + (_movement.x * 0.5f), 0.2f, false);
+
             if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
-            {
-                movePoint.position += new Vector3(0.0f, _movement.y/2, 0.0f);
-            }
+                movePoint.position += new Vector3(0.0f, 0.5f * _movement.y, 0.0f);
         }
-        if (_canTurn)
+
+        if (Input.GetKeyDown(KeyCode.Space) && _canTurn)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _currentTile.gameObject.transform.DORotate(_rot, 0.2f, RotateMode.WorldAxisAdd); StartCoroutine(InputDelay());
-            }
+            _currentTile.gameObject.transform.DORotate(_rot, 0.2f, RotateMode.WorldAxisAdd); StartCoroutine(InputDelay());
+            AudioMan.a_Instance.PlayOneShotByName("Turn");
         }
     }
 
