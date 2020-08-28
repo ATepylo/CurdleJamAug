@@ -11,13 +11,27 @@ public class GridManager : MonoBehaviour
     public int rows = 3;
     public int cols = 3;
     public float tileSize = 1;
+    //added a 2d array so the beet can use it
+    private GameObject[,] board;
+    public GameObject[,] GetBoard()
+    {
+        return board;
+    }
 
     [SerializeField] GameObject[] Tiles = new GameObject[6];
+
+
+    private void Awake()
+    {
+        board = new GameObject[rows, cols];
+        GenerateGrid();
+    }
 
     // Start is called before the first frame update
     private void OnEnable()
     {
-        GenerateGrid();
+        //GenerateGrid();
+        //board = new GameObject[rows, cols];
     }
 
     private void GenerateGrid()
@@ -35,6 +49,7 @@ public class GridManager : MonoBehaviour
                 tile.transform.localScale = Vector3.one;
                 tile.transform.position = new Vector2(posX, posY);
                 tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
+                board[row, col] = tile;
             }
         }
       //  Destroy(referenceTile);

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BeetMovement : MonoBehaviour
 {
-    //have a reference to the grid as well so we can place the beet at a tile to start
-    private Tiles currentTile;
+    private GridManager grid;
+    public GameObject[,] gridTiles;
+
+    public Tiles currentTile;
+    private Tiles nextTile;
     
     [SerializeField]
     private float moveSpeed;
@@ -24,13 +27,14 @@ public class BeetMovement : MonoBehaviour
     void Start()
     {
         StartCoroutine(DelayedStart());
-        
-        
-        //set up the beet on the board
-        //currentTile = Grid[0,0];
-        //transform.position = currentTile.centre;
-        //nextWaypoint = currentTile.entry1; //how can we ensure that the point it heads to is within the board? if we can rotate the piece the beet is on then the player can orient it before the beet starts moving
 
+        //setup the beet on the board
+        grid = FindObjectOfType<GridManager>();
+        gridTiles = grid.GetBoard();
+        currentTile = gridTiles[0,0].GetComponent<Tiles>(); //sets it up on the 0 tile, we can change this if we want to start in other places
+        nextWaypoint = currentTile.entry1;
+        exit = nextWaypoint;
+        transform.position = currentTile.transform.position;
     }
 
     // Update is called once per frame
@@ -59,10 +63,7 @@ public class BeetMovement : MonoBehaviour
             }
             else if(nextWaypoint == exit)
             {
-                /*
-                foreach(Tiles tile in Grid) // probly a more efficient way to do this
-                if(transform.position is on the tile and its ! current tile then call EntreTile with the new tile
-                */
+                FindClosestTile();             
             }
         }       
     }
@@ -75,17 +76,41 @@ public class BeetMovement : MonoBehaviour
         currentState = moveState.moving;
     }
 
+    private void FindClosestTile()
+    {
+        Debug.Log("finding closest tile");
+        float minDistance = 10;
+        foreach (GameObject tile in gridTiles)
+        {
+            if(currentTile.name != tile.name)
+            {
+                //Debug.Log(tile.name);
+                if (Vector2.Distance(transform.position, tile.transform.position) < minDistance)
+                {
+                    minDistance = Vector2.Distance(transform.position, tile.transform.position);
+                    nextTile = tile.GetComponent<Tiles>();
+                }
+                //Debug.Log(tile.name + " " + Vector2.Distance(transform.position, tile.transform.position));
+            }            
+        }
+        Debug.Log(currentTile.name);
+        Debug.Log(nextTile.name);
+        EntreTile(nextTile);
+    }
+
     //called when a beet entres a new tile to find it the 
     private void EntreTile(Tiles newTile)
     {
+        Debug.Log("entered new tile");
         currentTile = newTile;
-        if(Vector2.Distance(transform.position, currentTile.entry1.position) <= searchDistance)
+        Debug.Log(currentTile);
+        if(Vector2.Distance(transform.position, currentTile.entry1.position) <= searchDistance + 0.3f)
         {
             entry = currentTile.entry1;
             exit = currentTile.entry2;
             nextWaypoint = currentTile.centre;
         }
-        else if(Vector2.Distance(transform.position, currentTile.entry2.position) <= searchDistance)
+        else if(Vector2.Distance(transform.position, currentTile.entry2.position) <= searchDistance + 0.3f)
         {
             entry = currentTile.entry2;
             exit = currentTile.entry1;
@@ -94,6 +119,8 @@ public class BeetMovement : MonoBehaviour
         else
         {
             //if it is not at either entry point, the beat will splater at the side of the tile
+            currentState = moveState.stopped;
+            Debug.Log("dead");
         }
     }
 
