@@ -26,4 +26,9 @@ public class Tiles : MonoBehaviour
     {
         
     }
+
+    public void Rotate()
+    {
+        transform.rotation *= Quaternion.Euler(0, 0, -90);
+    }
 }
