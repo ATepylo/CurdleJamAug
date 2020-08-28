@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class TileSelector : MonoBehaviour
 {
+    public int _turns;
     public float _moveSpeed = 1;
     public Transform movePoint;
     Vector2 _movement;
@@ -48,6 +49,7 @@ public class TileSelector : MonoBehaviour
         {
             _currentTile.gameObject.transform.DORotate(_rot, 0.2f, RotateMode.WorldAxisAdd); StartCoroutine(InputDelay());
             AudioMan.a_Instance.PlayOneShotByName("Turn");
+            _turns++;
         }
     }
 
