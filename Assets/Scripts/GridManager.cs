@@ -32,6 +32,7 @@ public class GridManager : MonoBehaviour
     {
         //GenerateGrid();
         //board = new GameObject[rows, cols];
+        CheckGridRules();
     }
 
     private void GenerateGrid()
@@ -64,6 +65,9 @@ public class GridManager : MonoBehaviour
 
     void CheckGridRules()
     {
-       // board[0,0].gameObject. = 
+        if(board[0,0].gameObject != Resources.Load("Prefabs/Start Tile"))
+        {
+       
+        }
     }
 }

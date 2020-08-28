@@ -905,12 +905,12 @@ PrefabInstance:
     - target: {fileID: 2851269640165765482, guid: 8e2a5e10c00998a439a58dadbf0a6efc,
         type: 3}
       propertyPath: rows
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2851269640165765482, guid: 8e2a5e10c00998a439a58dadbf0a6efc,
         type: 3}
       propertyPath: cols
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2851269640165765482, guid: 8e2a5e10c00998a439a58dadbf0a6efc,
         type: 3}
