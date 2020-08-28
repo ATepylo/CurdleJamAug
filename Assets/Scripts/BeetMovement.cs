@@ -26,12 +26,18 @@ public class BeetMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetUpBeet();
+    }
+
+    public void SetUpBeet()
+    {
+        currentState = moveState.stopped;
         StartCoroutine(DelayedStart());
 
         //setup the beet on the board
         grid = FindObjectOfType<GridManager>();
         gridTiles = grid.GetBoard();
-        currentTile = gridTiles[0,0].GetComponent<Tiles>(); //sets it up on the 0 tile, we can change this if we want to start in other places
+        currentTile = gridTiles[0, 0].GetComponent<Tiles>(); //sets it up on the 0 tile, we can change this if we want to start in other places
         nextWaypoint = currentTile.entryPoints[0];
         exit = nextWaypoint;
         transform.position = currentTile.transform.position;
