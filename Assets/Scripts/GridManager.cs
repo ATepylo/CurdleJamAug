@@ -58,4 +58,9 @@ public class GridManager : MonoBehaviour
 
         transform.position = new Vector2(-gridW / 2 + tileSize / 2, gridH / 2 - tileSize / 2);
     }
+
+    void CheckGridRules()
+    {
+       // board[0,0].gameObject. = 
+    }
 }
