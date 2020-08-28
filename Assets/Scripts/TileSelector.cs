@@ -22,6 +22,13 @@ public class TileSelector : MonoBehaviour
         movePoint.parent = null;
     }
 
+    private int maxMoves = 1000;
+    public void SetMoves(int i)
+    {
+        maxMoves = i;
+    } 
+ 
+
     void Update()
     {
         _movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -45,7 +52,7 @@ public class TileSelector : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && _canTurn)
+        if (Input.GetKeyDown(KeyCode.Space) && _canTurn && _turns < maxMoves)
         {
             _currentTile.gameObject.transform.DORotate(_rot, 0.2f, RotateMode.WorldAxisAdd); StartCoroutine(InputDelay());
             AudioMan.a_Instance.PlayOneShotByName("Turn");
