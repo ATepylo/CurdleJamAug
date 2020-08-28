@@ -18,18 +18,12 @@ public class Tiles : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Rotate();
-    }
-
-    public void Rotate()
-    {
-        transform.rotation *= Quaternion.Euler(0, 0, -90); 
+        
     }
 }
