@@ -13,6 +13,10 @@ public class PuzzleOneScript : MonoBehaviour
     {
         return board;
     }
+    public int getMaxMoves()
+    {
+        return maxMoves;
+    }
 
     [SerializeField] GameObject[] Tiles = new GameObject[9];
 

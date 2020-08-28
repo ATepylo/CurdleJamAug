@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4a163d627a0e18d40b35b7f7a6930cba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec929dc3534e5a1429f33b18168ed113, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f87f104d3d82e84bb1586ac23853228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myDesignation: 0
   entryPoints:
   - {fileID: 6372697890330116655}
   - {fileID: 6372697890992331052}
@@ -105,6 +106,7 @@ MonoBehaviour:
   beetIsOn: 0
   maxTurns: 0
   turns: 0
+  adjacentTile: []
 --- !u!61 &-757986408916686963
 BoxCollider2D:
   m_ObjectHideFlags: 0

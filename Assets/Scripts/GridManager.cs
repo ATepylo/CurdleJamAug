@@ -13,7 +13,7 @@ public class GridManager : MonoBehaviour
     public float tileSize = 1;
     //added a 2d array so the beet can use it
     private GameObject[,] board;
-    GameObject startTile;
+    public GameObject startTile;
     GameObject goalTile;
     public GameObject[,] GetBoard()
     {
@@ -94,9 +94,9 @@ public class GridManager : MonoBehaviour
         startTile = (GameObject)Instantiate(Resources.Load("Prefabs/Start Tile"), transform);/*new Vector2(Random.Range(0, cols - 1), (rows + 1) * tileSize))*/;
         startTile.transform.position = new Vector2(Random.Range(0, cols-2), ((rows/2) * tileSize)+1);
         //sets ups the goal 
-        goalTile = (GameObject)Instantiate(Resources.Load("Prefabs/Start Tile"), transform);/*new Vector2(Random.Range(0, cols - 1), (rows + 1) * tileSize))*/;
+        goalTile = (GameObject)Instantiate(Resources.Load("Prefabs/Goal Tile"), transform);/*new Vector2(Random.Range(0, cols - 1), (rows + 1) * tileSize))*/;
         goalTile.transform.position = new Vector2(Random.Range(0, cols - 2), ((-rows/2) * tileSize)-1);
-        //  board[rows-1, cols-1].GetComponent<Tiles>().SetGoal(true);
+        goalTile.GetComponent<Tiles>().SetGoal(true);
     }
 
 

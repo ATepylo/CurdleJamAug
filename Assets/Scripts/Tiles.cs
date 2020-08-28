@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tiles : MonoBehaviour
 {
-    public enum TileType { A,B,C,D,E,F};
+    public enum TileType { A,B,C,D,Start,Goal};
     public TileType myDesignation;
     //public Transform entry1;
     //public Transform entry2;
@@ -31,18 +31,6 @@ public class Tiles : MonoBehaviour
     }
 
     public List<GameObject> adjacentTile;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public int GetEntryPoints()
     {

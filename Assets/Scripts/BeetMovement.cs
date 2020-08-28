@@ -20,8 +20,10 @@ public class BeetMovement : MonoBehaviour
     private float searchDistance; //so that the beet knows when it is close to a waypoint
 
 
-    private enum moveState { moving, stopped }
+    private enum moveState { moving, stopped, lose, win }
     private moveState currentState = moveState.stopped;
+
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -33,11 +35,11 @@ public class BeetMovement : MonoBehaviour
     {
         currentState = moveState.stopped;
         StartCoroutine(DelayedStart());
-
+        anim = GetComponentInChildren<Animator>();
         //setup the beet on the board
         grid = FindObjectOfType<GridManager>();
         gridTiles = grid.GetBoard();
-        currentTile = gridTiles[0, 0].GetComponent<Tiles>(); //sets it up on the 0 tile, we can change this if we want to start in other places
+        currentTile = FindObjectOfType<GridManager>().startTile.GetComponent<Tiles>();/*gridTiles[0, 0].GetComponent<Tiles>(); *///sets it up on the 0 tile, we can change this if we want to start in other places
         nextWaypoint = currentTile.entryPoints[0];
         exit = nextWaypoint;
         transform.position = currentTile.transform.position;
@@ -46,12 +48,18 @@ public class BeetMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(currentState)
+        switch (currentState)
         {
             case moveState.moving:
                 Move();
                 break;
             case moveState.stopped:
+                break;
+            case moveState.lose:
+                anim.SetBool("Lose", true);
+                break;
+            case moveState.win:
+                anim.SetBool("Win", true);
                 break;
         }
     }
@@ -128,14 +136,14 @@ public class BeetMovement : MonoBehaviour
             if(!currentPoint)
             {
                 //add gameoverstate
-                currentState = moveState.stopped;
+                currentState = moveState.lose;
                 Debug.Log("dead");
             }
             //if the beet makes it to the last tile wins the game 
             else if(currentPoint && currentTile.GetGoal())
             {
                 //add winstate
-                currentState = moveState.stopped;
+                currentState = moveState.win;
                 Debug.Log("winner winner chicken dinner");
             }
 
@@ -158,12 +166,12 @@ public class BeetMovement : MonoBehaviour
             //    Debug.Log("dead");
             //}
         }
-        else
-        {
-            //if it is not at either entry point, the beat will splater at the side of the tile
-            currentState = moveState.stopped;
-            Debug.Log("dead cuase blank space");
-        }
+        //else
+        //{
+        //    //if it is not at either entry point, the beat will splater at the side of the tile
+        //    currentState = moveState.lose;
+        //    Debug.Log("dead cuase blank space");
+        //}
 
     }
 
