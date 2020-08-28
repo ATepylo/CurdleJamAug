@@ -1,8 +1,9 @@
-﻿using System;
+﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Assertions.Must;
+using UnityEngine.Tilemaps;
 public class GridManager : MonoBehaviour
 {
 
@@ -11,7 +12,8 @@ public class GridManager : MonoBehaviour
     public int cols = 3;
     public float tileSize = 1;
 
-    
+    [SerializeField] GameObject[] Tiles = new GameObject[6];
+
     // Start is called before the first frame update
     private void OnEnable()
     {
@@ -20,30 +22,25 @@ public class GridManager : MonoBehaviour
 
     private void GenerateGrid()
     {
-        GameObject referenceTile = (GameObject)Instantiate(Resources.Load("Test Tile"));
+        
+        //GameObject referenceTile = (GameObject)Instantiate(Resources.Load("Prefabs/Test Tile"));
 
         for (int row = 0; row < rows; row++)
         {
             for (int col = 0; col < cols; col++)
             {
-                GameObject tile = (GameObject)Instantiate(referenceTile, transform);
-
+                GameObject tile = (GameObject)Instantiate(/*referenceTile*/ Tiles[Random.Range(0,Tiles.Length)], transform);
                 float posX = col * tileSize;
                 float posY = row * -tileSize;
-
+                tile.transform.localScale = Vector3.one;
                 tile.transform.position = new Vector2(posX, posY);
+                tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
             }
         }
-        Destroy(referenceTile);
+      //  Destroy(referenceTile);
         float gridW = cols * tileSize;
         float gridH = rows * tileSize;
 
         transform.position = new Vector2(-gridW / 2 + tileSize / 2, gridH / 2 - tileSize / 2);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

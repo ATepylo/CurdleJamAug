@@ -14,6 +14,7 @@ public class TileSelector : MonoBehaviour
     private Vector3 _rot = new Vector3(0.0f, 0.0f, -90);
     float buttonCoolDown = 0.25f;
     bool _canTurn = true;
+    public LayerMask stopSelector;
     private void OnEnable()
     {
         _currentTile = null;
@@ -24,14 +25,23 @@ public class TileSelector : MonoBehaviour
     {
         _movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         transform.position = Vector3.MoveTowards(transform.position, movePoint.position, _moveSpeed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, movePoint.position) <= 0.5f)
+        if (Vector3.Distance(transform.position, movePoint.position) <= 0.02f)
         {
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
-                movePoint.position += new Vector3(_movement.x * 0.5f, 0.0f, 0.0f);
-            //movePoint.transform.DOMoveX(movePoint.transform.position.x + (_movement.x * 0.5f), 0.2f, false);
+            {
+                if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(_movement.x, 0.0f, 0.0f), 0.2f, stopSelector))
+                {
+                    movePoint.position += new Vector3(_movement.x, 0.0f, 0.0f);
+                }
+            }   
 
-            if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
-                movePoint.position += new Vector3(0.0f, 0.5f * _movement.y, 0.0f);
+            else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
+            {
+                if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0.0f, _movement.y, 0.0f), 0.2f, stopSelector))
+                {
+                    movePoint.position += new Vector3(0.0f, _movement.y, 0.0f);
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && _canTurn)
