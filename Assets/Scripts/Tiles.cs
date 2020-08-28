@@ -28,6 +28,8 @@ public class Tiles : MonoBehaviour
         return isGoal;
     }
 
+    public List<GameObject> adjacentTile;
+
     // Start is called before the first frame update
     void Start()
     {

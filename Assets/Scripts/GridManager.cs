@@ -33,7 +33,7 @@ public class GridManager : MonoBehaviour
         //GenerateGrid();
         //board = new GameObject[rows, cols];
         CheckGridRules();
-    }
+    }   
 
     private void GenerateGrid()
     {
@@ -44,13 +44,37 @@ public class GridManager : MonoBehaviour
         {
             for (int col = 0; col < cols; col++)
             {
-                GameObject tile = (GameObject)Instantiate(/*referenceTile*/ Tiles[Random.Range(0,Tiles.Length)], transform);
-                float posX = col * tileSize;
-                float posY = row * -tileSize;
-                tile.transform.localScale = Vector3.one;
-                tile.transform.position = new Vector2(posX, posY);
-                tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
-                board[row, col] = tile;
+                if(row == 0 && col == 0) //prevents first square from being blank
+                {
+                    GameObject tile = (GameObject)Instantiate(/*referenceTile*/ Tiles[Random.Range(0, Tiles.Length-1)], transform);
+                    float posX = col * tileSize;
+                    float posY = row * -tileSize;
+                    tile.transform.localScale = Vector3.one;
+                    tile.transform.position = new Vector2(posX, posY);
+                    tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
+                    board[row, col] = tile;
+                }
+                else if(row == rows - 1 && col == cols - 1) //prevents last square from being blank
+                {
+                    GameObject tile = (GameObject)Instantiate(/*referenceTile*/ Tiles[Random.Range(0, Tiles.Length-1)], transform);
+                    float posX = col * tileSize;
+                    float posY = row * -tileSize;
+                    tile.transform.localScale = Vector3.one;
+                    tile.transform.position = new Vector2(posX, posY);
+                    tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
+                    board[row, col] = tile;
+                }
+                else
+                {
+                    GameObject tile = (GameObject)Instantiate(/*referenceTile*/ Tiles[Random.Range(0, Tiles.Length)], transform);
+                    float posX = col * tileSize;
+                    float posY = row * -tileSize;
+                    tile.transform.localScale = Vector3.one;
+                    tile.transform.position = new Vector2(posX, posY);
+                    tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
+                    board[row, col] = tile;
+                }
+                
             }
         }
       //  Destroy(referenceTile);
@@ -58,6 +82,10 @@ public class GridManager : MonoBehaviour
         float gridH = rows * tileSize;
 
         transform.position = new Vector2(-gridW / 2 + tileSize / 2, gridH / 2 - tileSize / 2);
+
+        //added these as first attempt to prevent unsolvable situations
+        SetAdjacent();
+        CheckForBlanks();
 
         //sets ups the goal 
         board[rows-1, cols-1].GetComponent<Tiles>().SetGoal(true);
@@ -68,6 +96,51 @@ public class GridManager : MonoBehaviour
         if(board[0,0].gameObject != Resources.Load("Prefabs/Start Tile"))
         {
        
+        }
+    }
+
+    private void SetAdjacent()
+    {
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                if((row - 1) >= 0)
+                    board[row, col].GetComponent<Tiles>().adjacentTile.Add(board[row - 1, col]);
+                if ((row + 1) <= rows - 1)
+                    board[row, col].GetComponent<Tiles>().adjacentTile.Add(board[row + 1, col]);
+                if ((col - 1) >= 0)
+                    board[row, col].GetComponent<Tiles>().adjacentTile.Add(board[row, col - 1]);
+                if ((col + 1) <= cols - 1)
+                    board[row, col].GetComponent<Tiles>().adjacentTile.Add(board[row, col + 1]);
+
+            }
+        }
+    }
+
+    private void CheckForBlanks()
+    {
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                int i = 0;
+                foreach (GameObject adj in board[row, col].GetComponent<Tiles>().adjacentTile)
+                {
+                    if (adj == Tiles[4])
+                        i++;
+                }
+                if (i == board[row, col].GetComponent<Tiles>().adjacentTile.Count)
+                {
+                    board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1] = (GameObject)Instantiate(/*referenceTile*/ Tiles[Random.Range(0, Tiles.Length - 1)], transform);
+                    float posX = col * tileSize;
+                    float posY = row * -tileSize;
+                    board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1].transform.localScale = Vector3.one;
+                    board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1].transform.position = new Vector2(posX, posY);
+                    board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1].name = "C" + col + "R" + row + " " + board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1].GetComponent<SpriteRenderer>().sprite.name.ToString();
+                    //board[row, col] = tile;
+                }
+            }
         }
     }
 }
