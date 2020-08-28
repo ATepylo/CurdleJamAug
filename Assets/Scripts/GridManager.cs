@@ -14,7 +14,11 @@ public class GridManager : MonoBehaviour
     //added a 2d array so the beet can use it
     private GameObject[,] board;
     public GameObject startTile;
-    GameObject goalTile;
+    private GameObject goalTile;
+    public GameObject GetGoal()
+    {
+        return goalTile;
+    }
     public GameObject[,] GetBoard()
     {
         return board;
@@ -56,7 +60,7 @@ public class GridManager : MonoBehaviour
                     tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
                     board[row, col] = tile;
                 }
-                else if(row == rows - 1 && col == cols - 1) //prevents last square from being blank
+                else if(row == rows - 1 && col == cols - 1) //prevents bottom left square from being blank
                 {
                     GameObject tile = (GameObject)Instantiate(Tiles[Random.Range(0, Tiles.Length-1)], transform);
                     float posX = col * tileSize;
@@ -92,10 +96,12 @@ public class GridManager : MonoBehaviour
 
         //sets up the start tile
         startTile = (GameObject)Instantiate(Resources.Load("Prefabs/Start Tile"), transform);/*new Vector2(Random.Range(0, cols - 1), (rows + 1) * tileSize))*/;
-        startTile.transform.position = new Vector2(Random.Range(0, cols-2), ((rows/2) * tileSize)+1);
+        //startTile.transform.position = new Vector2(Random.Range(0, cols - 2), ((rows/2) * tileSize)+1);
+        startTile.transform.position = new Vector2((-cols/2), ((rows / 2) * tileSize) + 1);
         //sets ups the goal 
         goalTile = (GameObject)Instantiate(Resources.Load("Prefabs/Goal Tile"), transform);/*new Vector2(Random.Range(0, cols - 1), (rows + 1) * tileSize))*/;
-        goalTile.transform.position = new Vector2(Random.Range(0, cols - 2), ((-rows/2) * tileSize)-1);
+        //goalTile.transform.position = new Vector2(Random.Range(0, cols - 2), ((-rows/2) * tileSize)-1);
+        goalTile.transform.position = new Vector2(cols/2, ((-rows / 2) * tileSize) - 1);
         goalTile.GetComponent<Tiles>().SetGoal(true);
     }
 

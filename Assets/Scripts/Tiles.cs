@@ -20,6 +20,7 @@ public class Tiles : MonoBehaviour
     public int maxTurns;
     public int turns;
 
+    [SerializeField]
     private bool isGoal;
     public void SetGoal(bool b)
     {

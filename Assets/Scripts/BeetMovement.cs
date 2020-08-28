@@ -5,6 +5,7 @@ using UnityEngine;
 public class BeetMovement : MonoBehaviour
 {
     private GridManager grid;
+    private PuzzleOneScript p1Grid;
     public GameObject[,] gridTiles;
 
     public Tiles currentTile;
@@ -25,6 +26,10 @@ public class BeetMovement : MonoBehaviour
 
     Animator anim;
 
+    //for
+    public GameObject directionIndicator;
+    private Vector3 direction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +42,19 @@ public class BeetMovement : MonoBehaviour
         StartCoroutine(DelayedStart());
         anim = GetComponentInChildren<Animator>();
         //setup the beet on the board
-        grid = FindObjectOfType<GridManager>();
-        gridTiles = grid.GetBoard();
-        currentTile = FindObjectOfType<GridManager>().startTile.GetComponent<Tiles>();/*gridTiles[0, 0].GetComponent<Tiles>(); *///sets it up on the 0 tile, we can change this if we want to start in other places
+        if(FindObjectOfType<GridManager>())
+        {
+            grid = FindObjectOfType<GridManager>();
+            gridTiles = grid.GetBoard();
+            currentTile = grid.startTile.GetComponent<Tiles>();/*gridTiles[0, 0].GetComponent<Tiles>(); *///sets it up on the 0 tile, we can change this if we want to start in other places
+        }
+        else if(FindObjectOfType<PuzzleOneScript>())
+        {
+            p1Grid = FindObjectOfType<PuzzleOneScript>();
+            gridTiles = p1Grid.GetBoard();
+            currentTile = gridTiles[0, 0].GetComponent<Tiles>();
+        }
+
         nextWaypoint = currentTile.entryPoints[0];
         exit = nextWaypoint;
         transform.position = currentTile.transform.position;
@@ -68,6 +83,10 @@ public class BeetMovement : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, nextWaypoint.position, moveSpeed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);// to ensure is always visible over the tiles
+
+        direction = exit.transform.position - transform.position;
+        directionIndicator.transform.position = transform.position + direction.normalized * 0.75f;
+
         //to switch waypoints
         if(Vector2.Distance(transform.position, nextWaypoint.position) <= searchDistance)
         {
@@ -102,9 +121,12 @@ public class BeetMovement : MonoBehaviour
                 {
                     minDistance = Vector2.Distance(transform.position, tile.transform.position);
                     nextTile = tile.GetComponent<Tiles>();
-                }
-                
+                }                
             }            
+        }
+        if(Vector2.Distance(transform.position, grid.GetGoal().transform.position) < minDistance )
+        {
+            nextTile = grid.GetGoal().GetComponent<Tiles>();
         }
        
         EntreTile(nextTile);
@@ -127,25 +149,44 @@ public class BeetMovement : MonoBehaviour
                 if (Vector2.Distance(transform.position, currentTile.entryPoints[i].position) <= searchDistance + 0.3f)
                 {
                     entry = currentTile.entryPoints[i];
-                    exit = currentTile.entryPoints[(i + 1) % currentTile.entryPoints.Length];
+                    //use this to allway turn left
+                    //exit = currentTile.entryPoints[(i + 1) % currentTile.entryPoints.Length]; 
+                    //use this to chose an exist at random (not the entry point)
+                    int randExit = Random.Range(0, currentTile.entryPoints.Length);
+                    if(randExit == i) { randExit = (randExit + 1) % currentTile.entryPoints.Length; }
+                    exit = currentTile.entryPoints[randExit];
+
                     nextWaypoint = currentTile.centre;
                     currentPoint = true;
                 }
-            }           
-            //if the beet runs into a wall will gameover
-            if(!currentPoint)
-            {
-                //add gameoverstate
-                currentState = moveState.lose;
-                Debug.Log("dead");
             }
-            //if the beet makes it to the last tile wins the game 
-            else if(currentPoint && currentTile.GetGoal())
+
+            if (currentTile.GetComponent<Tiles>().GetGoal())
             {
-                //add winstate
                 currentState = moveState.win;
-                Debug.Log("winner winner chicken dinner");
             }
+            else if(!currentPoint)
+            {
+                //if it is not at either entry point, the beat will splater at the side of the tile
+                currentState = moveState.lose;
+                Debug.Log("dead here");
+            }
+
+            //if the beet runs into a wall will gameover
+            //if(!currentPoint)
+            //{
+            //    //add gameoverstate
+            //    currentState = moveState.lose;
+            //    Debug.Log("dead");
+            //}
+            ////if the beet makes it to the last tile wins the game 
+            //else if(currentPoint && currentTile.GetGoal())
+            //{
+            //    //add winstate
+            //    currentState = moveState.win;
+            //    Debug.Log("winner winner chicken dinner");
+            //}
+            
 
             //if (Vector2.Distance(transform.position, currentTile.entryPoints[0].position) <= searchDistance + 0.3f)
             //{
@@ -159,19 +200,14 @@ public class BeetMovement : MonoBehaviour
             //    exit = currentTile.entryPoints[0];
             //    nextWaypoint = currentTile.centre;
             //}
-            //else
-            //{
-            //    //if it is not at either entry point, the beat will splater at the side of the tile
-            //    currentState = moveState.stopped;
-            //    Debug.Log("dead");
-            //}
+            
         }
-        //else
-        //{
-        //    //if it is not at either entry point, the beat will splater at the side of the tile
-        //    currentState = moveState.lose;
-        //    Debug.Log("dead cuase blank space");
-        //}
+        else
+        {
+            //if it is not at either entry point, the beat will splater at the side of the tile
+            currentState = moveState.lose;
+            Debug.Log("dead cuase blank space");
+        }
 
     }
 
