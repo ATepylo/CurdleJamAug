@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Tiles : MonoBehaviour
 {
-    public Transform entry1;
-    public Transform entry2;
+    //public Transform entry1;
+    //public Transform entry2;
+    //public Transform entry3;
+    //public Transform entry4;
+    public Transform[] entryPoints;
     public Transform centre;
 
     public Sprite sprite;
@@ -14,6 +17,16 @@ public class Tiles : MonoBehaviour
 
     public int maxTurns;
     public int turns;
+
+    private bool isGoal;
+    public void SetGoal(bool b)
+    {
+        isGoal = b;
+    }
+    public bool GetGoal()
+    {
+        return isGoal;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +38,11 @@ public class Tiles : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public int GetEntryPoints()
+    {
+        return entryPoints.Length;
     }
 
     public void Rotate()

@@ -57,5 +57,8 @@ public class GridManager : MonoBehaviour
         float gridH = rows * tileSize;
 
         transform.position = new Vector2(-gridW / 2 + tileSize / 2, gridH / 2 - tileSize / 2);
+
+        //sets ups the goal 
+        board[rows-1, cols-1].GetComponent<Tiles>().SetGoal(true);
     }
 }
