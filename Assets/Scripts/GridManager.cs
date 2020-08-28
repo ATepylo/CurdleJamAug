@@ -13,6 +13,8 @@ public class GridManager : MonoBehaviour
     public float tileSize = 1;
     //added a 2d array so the beet can use it
     private GameObject[,] board;
+    GameObject startTile;
+    GameObject goalTile;
     public GameObject[,] GetBoard()
     {
         return board;
@@ -32,7 +34,7 @@ public class GridManager : MonoBehaviour
     {
         //GenerateGrid();
         //board = new GameObject[rows, cols];
-        CheckGridRules();
+       // CheckGridRules();
     }   
 
     private void GenerateGrid()
@@ -46,7 +48,7 @@ public class GridManager : MonoBehaviour
             {
                 if(row == 0 && col == 0) //prevents first square from being blank
                 {
-                    GameObject tile = (GameObject)Instantiate(/*referenceTile*/ Tiles[Random.Range(0, Tiles.Length-1)], transform);
+                    GameObject tile = (GameObject)Instantiate(Tiles[Random.Range(0, Tiles.Length-1)], transform);
                     float posX = col * tileSize;
                     float posY = row * -tileSize;
                     tile.transform.localScale = Vector3.one;
@@ -56,7 +58,7 @@ public class GridManager : MonoBehaviour
                 }
                 else if(row == rows - 1 && col == cols - 1) //prevents last square from being blank
                 {
-                    GameObject tile = (GameObject)Instantiate(/*referenceTile*/ Tiles[Random.Range(0, Tiles.Length-1)], transform);
+                    GameObject tile = (GameObject)Instantiate(Tiles[Random.Range(0, Tiles.Length-1)], transform);
                     float posX = col * tileSize;
                     float posY = row * -tileSize;
                     tile.transform.localScale = Vector3.one;
@@ -66,7 +68,7 @@ public class GridManager : MonoBehaviour
                 }
                 else
                 {
-                    GameObject tile = (GameObject)Instantiate(/*referenceTile*/ Tiles[Random.Range(0, Tiles.Length)], transform);
+                    GameObject tile = (GameObject)Instantiate(Tiles[Random.Range(0, Tiles.Length)], transform);
                     float posX = col * tileSize;
                     float posY = row * -tileSize;
                     tile.transform.localScale = Vector3.one;
@@ -87,17 +89,16 @@ public class GridManager : MonoBehaviour
         SetAdjacent();
         CheckForBlanks();
 
+
+        //sets up the start tile
+        startTile = (GameObject)Instantiate(Resources.Load("Prefabs/Start Tile"), transform);/*new Vector2(Random.Range(0, cols - 1), (rows + 1) * tileSize))*/;
+        startTile.transform.position = new Vector2(Random.Range(0, cols-2), ((rows/2) * tileSize)+1);
         //sets ups the goal 
-        board[rows-1, cols-1].GetComponent<Tiles>().SetGoal(true);
+        goalTile = (GameObject)Instantiate(Resources.Load("Prefabs/Start Tile"), transform);/*new Vector2(Random.Range(0, cols - 1), (rows + 1) * tileSize))*/;
+        goalTile.transform.position = new Vector2(Random.Range(0, cols - 2), ((-rows/2) * tileSize)-1);
+        //  board[rows-1, cols-1].GetComponent<Tiles>().SetGoal(true);
     }
 
-    void CheckGridRules()
-    {
-        if(board[0,0].gameObject != Resources.Load("Prefabs/Start Tile"))
-        {
-       
-        }
-    }
 
     private void SetAdjacent()
     {
@@ -143,4 +144,5 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
 }

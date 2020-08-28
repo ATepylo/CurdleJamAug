@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tiles : MonoBehaviour
 {
+    public enum TileType { A,B,C,D,E,F};
+    public TileType myDesignation;
     //public Transform entry1;
     //public Transform entry2;
     //public Transform entry3;

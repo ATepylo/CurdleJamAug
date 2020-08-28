@@ -97,13 +97,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f87f104d3d82e84bb1586ac23853228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entry1: {fileID: 0}
-  entry2: {fileID: 0}
+  myDesignation: 5
+  entryPoints: []
   centre: {fileID: 6372697889827762856}
   sprite: {fileID: 0}
   beetIsOn: 0
   maxTurns: 0
   turns: 0
+  adjacentTile: []
 --- !u!61 &-757986408916686963
 BoxCollider2D:
   m_ObjectHideFlags: 0

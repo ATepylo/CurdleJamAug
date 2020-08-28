@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6372697889827762853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.77, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6372697890330116655}
   - {fileID: 6372697890992331052}
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f87f104d3d82e84bb1586ac23853228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myDesignation: 1
   entryPoints:
   - {fileID: 6372697890330116655}
   - {fileID: 6372697890992331052}
@@ -105,6 +106,7 @@ MonoBehaviour:
   beetIsOn: 0
   maxTurns: 0
   turns: 0
+  adjacentTile: []
 --- !u!61 &-757986408916686963
 BoxCollider2D:
   m_ObjectHideFlags: 0
