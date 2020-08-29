@@ -24,8 +24,15 @@ public class MainMenuSelector : MonoBehaviour
 
     //for play menu
     [SerializeField] GameObject[] playButtons;
-    [SerializeField] GameObject playPointer;
-    int playSelection;
+    int playSelection = 0;
+
+    //for options menu
+    [SerializeField] GameObject[] rowsButtons;
+    [SerializeField] GameObject[] speedButtons;
+    [SerializeField] GameObject backButton;
+    int optionRow = 0;
+    int optionCol = 0;
+
 
     private bool canMove;
 
@@ -38,6 +45,7 @@ public class MainMenuSelector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentMenu = Menu.main;
         option = FindObjectOfType<Options>();
         canMove = true;
         pointer.transform.position = new Vector2(menuButtons[0].transform.position.x + 3, menuButtons[0].transform.position.y);
@@ -83,35 +91,41 @@ public class MainMenuSelector : MonoBehaviour
                 {
                     if (menuSelection == 0)
                     {
-                        currentMenu = Menu.options;
+                        currentMenu = Menu.play;
+                        playSelection = 0;
+                        StartCoroutine(SetPlayCursor());
                         s_Anim.SetBool("drop", true);
 
                         //StartRandom();
                     }
                     else if (menuSelection == 1)
                     {
-                        if (rowNumber.gameObject.activeSelf)
-                        {
-                            p_Anim.SetBool("drop", false);
-                            rowNumber.gameObject.SetActive(false);
-                            rowText.enabled = false;
-                            speedSlider.gameObject.SetActive(false);
-                            foreach (var item in speedText)
-                            {
-                                item.enabled = false;
-                            }
-                        }
-                        else
-                        {
-                            StartCoroutine(OptionsTimer());
-                            //rowNumber.gameObject.SetActive(true);
-                            //rowText.enabled = true;
-                            //speedSlider.gameObject.SetActive(true);
-                            //foreach (var item in speedText)
-                            //{
-                            //    item.enabled = true;
-                            //}
-                        }
+                        optionRow = 0;
+                        optionCol = 0;
+                        StartCoroutine(SetOptionCursor());
+                        p_Anim.SetBool("drop", false);
+                        //if (rowNumber.gameObject.activeSelf)
+                        //{
+                        //    p_Anim.SetBool("drop", false);
+                        //    rowNumber.gameObject.SetActive(false);
+                        //    rowText.enabled = false;
+                        //    speedSlider.gameObject.SetActive(false);
+                        //    foreach (var item in speedText)
+                        //    {
+                        //        item.enabled = false;
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    StartCoroutine(OptionsTimer());
+                        //    //rowNumber.gameObject.SetActive(true);
+                        //    //rowText.enabled = true;
+                        //    //speedSlider.gameObject.SetActive(true);
+                        //    //foreach (var item in speedText)
+                        //    //{
+                        //    //    item.enabled = true;
+                        //    //}
+                        //}
                     }
                     else if (menuSelection == 2)
                     {
@@ -122,8 +136,49 @@ public class MainMenuSelector : MonoBehaviour
 
                 break;
             case Menu.play:
+                if (Input.GetAxisRaw("Vertical") > 0.1f && canMove && playSelection > 0)
+                {
+                    playSelection--;
+                    pointer.transform.position = new Vector2(playButtons[playSelection].transform.position.x + 2, playButtons[playSelection].transform.position.y);
+                    canMove = false;
+                }
+                else if (Input.GetAxisRaw("Vertical") < -0.1f && canMove && playSelection < playButtons.Length - 1)
+                {
+                    playSelection++;
+                    pointer.transform.position = new Vector2(playButtons[playSelection].transform.position.x + 2, playButtons[playSelection].transform.position.y);
+                    canMove = false;
+                }
+
+
+                if (Input.GetAxisRaw("Vertical") >= -0.1f && Input.GetAxisRaw("Vertical") <= 0.1f)
+                {
+                    canMove = true;
+                }
+
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    if(playSelection == 0)
+                    {
+                        SceneManager.LoadScene(2); // have first scene in build index 2
+                    }
+                    else if(playSelection == 1)
+                    {
+                        SceneManager.LoadScene(1); // have random scene in build index 1
+                    }
+                    else if(playSelection == 2)
+                    {
+                        currentMenu = Menu.main;
+                        pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
+                        s_Anim.SetBool("drop", false);
+                    }
+                }
+
                 break;
             case Menu.options:
+                //add options for rows here
+
+
+
                 break;
 
         }
@@ -131,6 +186,7 @@ public class MainMenuSelector : MonoBehaviour
         
 
     }
+
     IEnumerator OptionsTimer()
     {
         p_Anim.SetBool("drop", true);
@@ -162,6 +218,19 @@ public class MainMenuSelector : MonoBehaviour
     public void StartPuzzleLevel()
     {
         //to load puzzle level
+    }
+
+    IEnumerator SetPlayCursor()
+    {
+        yield return new WaitForSeconds(1.5f);
+        pointer.transform.position = new Vector2(playButtons[playSelection].transform.position.x + 2, playButtons[playSelection].transform.position.y);
+    }
+
+    IEnumerator SetOptionCursor()
+    {
+        yield return new WaitForSeconds(1.5f);
+        pointer.transform.position = new Vector2(rowsButtons[0].transform.position.x + 2, rowsButtons[0].transform.position.y);
+        //pointer.transform.position = new Vector2(speedButtons[0].transform.position.x + 2, speedButtons[0].transform.position.y);
     }
 
 }
