@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PuzzleOneScript : MonoBehaviour
+public class PuzzleTwoScript : MonoBehaviour
 {
     public int rows = 3;
     public int cols = 3;
@@ -17,6 +17,8 @@ public class PuzzleOneScript : MonoBehaviour
     {
         return maxMoves;
     }
+
+    public GameObject goal;
 
     private GameObject goalTile;
     public GameObject GetGoal()
@@ -78,7 +80,16 @@ public class PuzzleOneScript : MonoBehaviour
 
         transform.position = new Vector2(-gridW / 2 + tileSize / 2, gridH / 2 - tileSize / 2);
 
-        goalTile = board[1, 1];
-        board[1,1].GetComponent<Tiles>().SetGoal(true);
+        //goalTile = board[0, 2];
+        //board[0, 2].GetComponent<Tiles>().SetGoal(true);
+
+        goalTile = (GameObject)Instantiate(Resources.Load("Prefabs/Goal Tile"), transform);/*new Vector2(Random.Range(0, cols - 1), (rows + 1) * tileSize))*/;
+        //goalTile.transform.position = new Vector2(Random.Range(0, cols - 2), ((-rows/2) * tileSize)-1);
+        goalTile.transform.position = new Vector2(cols / 2, ((rows / 2) * tileSize) + 1);
+        goalTile.transform.rotation *= Quaternion.Euler(0, 0, 180);
+        goalTile.GetComponent<Tiles>().SetGoal(true);
+        
+        //rotates the tiles to correct orientation on start
+        board[2, 2].transform.rotation *= Quaternion.Euler(0, 0, -90); 
     }
 }

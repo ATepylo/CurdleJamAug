@@ -16,10 +16,24 @@ public class TileSelector : MonoBehaviour
     float buttonCoolDown = 0.25f;
     bool _canTurn = true;
     public LayerMask stopSelector;
+
+    private enum PuzzleState { freePlay, Puzzle}
+    private PuzzleState currentState = PuzzleState.freePlay;
+
     private void OnEnable()
     {
         _currentTile = null;
         movePoint.parent = null;
+
+        if(FindObjectOfType<GridManager>())
+        {
+            currentState = PuzzleState.freePlay;
+        }
+        else
+        {
+            currentState = PuzzleState.Puzzle;
+        }
+
     }
 
     private int maxMoves = 1000;
@@ -52,11 +66,21 @@ public class TileSelector : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && _canTurn && _turns < maxMoves)
+        if (Input.GetKeyDown(KeyCode.Space) && _canTurn)
         {
-            _currentTile.gameObject.transform.DORotate(_rot, 0.2f, RotateMode.WorldAxisAdd); StartCoroutine(InputDelay());
-            AudioMan.a_Instance.PlayOneShotByName("Turn");
-            _turns++;
+            if(currentState == PuzzleState.freePlay)
+            {
+                _currentTile.gameObject.transform.DORotate(_rot, 0.2f, RotateMode.WorldAxisAdd); StartCoroutine(InputDelay());
+                AudioMan.a_Instance.PlayOneShotByName("Turn");
+                _turns++;
+            }
+            else if(currentState == PuzzleState.Puzzle && _turns < maxMoves && !_currentTile.GetBeetOn())
+            {
+                _currentTile.gameObject.transform.DORotate(_rot, 0.2f, RotateMode.WorldAxisAdd); StartCoroutine(InputDelay());
+                AudioMan.a_Instance.PlayOneShotByName("Turn");
+                _turns++;
+            }
+            
         }
     }
 
