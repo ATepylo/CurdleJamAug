@@ -8,7 +8,7 @@ public class MainMenuSelector : MonoBehaviour
 {
     private Options option;
 
-    public Slider rowsSlider;
+    public Dropdown rowDropDown;
     public Slider speedSlider;
 
     // Start is called before the first frame update
@@ -21,16 +21,26 @@ public class MainMenuSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            StartRandom();
+            Debug.Log(option.GetRows());
+        }
     }
 
     public void StartRandom()
     {
         //sets the options for row/columns and beet speed when starting a random run
-        option.SetRows((int)rowsSlider.value);
+        if(rowDropDown.value == 0)
+            option.SetRows(3);
+        else if (rowDropDown.value == 1)
+            option.SetRows(5);
+        else if (rowDropDown.value == 2)
+            option.SetRows(7);
+
         option.SetSpeed(speedSlider.value);
         //load the scene with random creation
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
     }
 
     public void StartPuzzleLevel()

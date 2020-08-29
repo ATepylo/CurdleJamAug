@@ -13,7 +13,7 @@ public class Options : MonoBehaviour
     }
     public void SetRows(int i)
     {
-        numberofRows = 1;
+        numberofRows = i;
     }
 
     private float beetSpeed;
