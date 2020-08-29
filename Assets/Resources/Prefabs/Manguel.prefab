@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5794844257000670766}
   - component: {fileID: 5794844257000670767}
   m_Layer: 0
-  m_Name: Beet_Container
+  m_Name: Manguel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

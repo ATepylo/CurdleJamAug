@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - DecisionTile
+  - MenuButtons
   layers:
   - Default
   - TransparentFX

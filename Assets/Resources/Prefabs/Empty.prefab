@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: be300f52cf4bae747a854772aba3f697, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 917bf53531a4c2a40a6cfccdfe4971d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,6 +104,7 @@ MonoBehaviour:
   beetIsOn: 0
   maxTurns: 0
   turns: 0
+  isGoal: 0
   adjacentTile: []
 --- !u!61 &-757986408916686963
 BoxCollider2D:
