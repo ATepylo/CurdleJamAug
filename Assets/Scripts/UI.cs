@@ -13,6 +13,12 @@ public class UI : MonoBehaviour
     int maxTurns;
     PuzzleOneScript pOne;
 
+    //buttons for gameplay loop
+    public Button restart;
+    public Button menu;
+    public Button quit;
+    private GridManager gridM;
+
     //Timer
     float l_Time = 120;
     [SerializeField] Text t_Text;
@@ -29,6 +35,12 @@ public class UI : MonoBehaviour
             _turnsUsed.text = "Turns Used \n \n" + "<b>" + _check + "</b> /" + maxTurns;
         }
         t_StartSize = t_Size.transform.localScale;
+
+
+        gridM = FindObjectOfType<GridManager>();
+        restart.gameObject.SetActive(false);
+        menu.gameObject.SetActive(false);
+        quit.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -77,5 +89,30 @@ public class UI : MonoBehaviour
         {
             TimerTextFormat();
         }
+    }
+
+
+    public void ShowButtons()
+    {
+        restart.gameObject.SetActive(true);
+        menu.gameObject.SetActive(true);
+        quit.gameObject.SetActive(true);
+    }
+
+
+    public void Restart()
+    {
+        gridM.ResetGrid();
+        restart.gameObject.SetActive(false);
+        menu.gameObject.SetActive(false);
+        quit.gameObject.SetActive(false);
+    }
+    public void Menu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

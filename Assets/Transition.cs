@@ -18,6 +18,6 @@ public class Transition : MonoBehaviour
     void Update()
     {
         //testing the load next scene transition
-        if (Input.GetKeyUp(KeyCode.Space)) transform.DOLocalMoveY(-0.5f, _transitionSpeed, false);
+        //if (Input.GetKeyUp(KeyCode.Space)) transform.DOLocalMoveY(-0.5f, _transitionSpeed, false);
     }
 }

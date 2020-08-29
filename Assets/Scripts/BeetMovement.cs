@@ -26,6 +26,9 @@ public class BeetMovement : MonoBehaviour
 
     Animator anim;
 
+    private Options option;
+    private UI ui;
+
     //for
     public GameObject directionIndicator;
     private Vector3 direction;
@@ -33,6 +36,13 @@ public class BeetMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(FindObjectOfType<Options>())
+        {
+            option = FindObjectOfType<Options>();
+            moveSpeed = option.GetSpeed();
+        }
+        ui = FindObjectOfType<UI>();
+
         SetUpBeet();
     }
 
@@ -58,6 +68,11 @@ public class BeetMovement : MonoBehaviour
         nextWaypoint = currentTile.entryPoints[0];
         exit = nextWaypoint;
         transform.position = currentTile.transform.position;
+
+        anim.SetTrigger("Walk");
+        anim.SetBool("Lose", false);
+        anim.SetBool("Win", false);
+
     }
 
     // Update is called once per frame
@@ -72,9 +87,11 @@ public class BeetMovement : MonoBehaviour
                 break;
             case moveState.lose:
                 anim.SetBool("Lose", true);
+                ui.ShowButtons();
                 break;
             case moveState.win:
                 anim.SetBool("Win", true);
+                ui.ShowButtons();
                 break;
         }
     }

@@ -26,9 +26,19 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] GameObject[] Tiles = new GameObject[6];
 
+    private Options option;
+    private BeetMovement beet;
 
     private void Awake()
     {
+        if (FindObjectOfType<Options>())
+        {
+            option = FindObjectOfType<Options>();
+
+            rows = option.GetRows();
+            cols = option.GetRows();
+        }
+        beet = FindObjectOfType<BeetMovement>();
         board = new GameObject[rows, cols];
         GenerateGrid();
     }
@@ -39,7 +49,30 @@ public class GridManager : MonoBehaviour
         //GenerateGrid();
         //board = new GameObject[rows, cols];
        // CheckGridRules();
-    }   
+    }
+
+
+    private void Update()
+    {
+        //testing reseting the board
+        //if(Input.GetKeyDown(KeyCode.G))
+        //{
+        //    ResetGrid();
+            
+        //}
+    }
+
+    public void ResetGrid()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        transform.position = new Vector2(0, 0);
+        board = new GameObject[rows, cols];
+        GenerateGrid();
+        beet.SetUpBeet();
+    }
 
     private void GenerateGrid()
     {
