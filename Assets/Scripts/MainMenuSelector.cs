@@ -17,11 +17,20 @@ public class MainMenuSelector : MonoBehaviour
     public Text rowText;
     public Image[] speedText;
 
+    //for main menu
     [SerializeField] GameObject[] menuButtons;
     [SerializeField] GameObject pointer;
     int menuSelection = 0;
 
+    //for play menu
+    [SerializeField] GameObject[] playButtons;
+    [SerializeField] GameObject playPointer;
+    int playSelection;
+
     private bool canMove;
+
+    private enum Menu { main, play, options }
+    private Menu currentMenu = Menu.main;
 
     //Options Panel
     [SerializeField] Animator p_Anim;
@@ -47,63 +56,79 @@ public class MainMenuSelector : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetAxisRaw("Vertical") > 0.1f && canMove && menuSelection > 0)
+        switch(currentMenu)
         {
-            menuSelection--;
-            pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
-            canMove = false;
-        }
-        else if (Input.GetAxisRaw("Vertical") < -0.1f && canMove && menuSelection < menuButtons.Length - 1)
-        {
-            menuSelection++;
-            pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
-            canMove = false;
-        }
+            case Menu.main:
 
-
-        if (Input.GetAxisRaw("Vertical") >= -0.1f && Input.GetAxisRaw("Vertical") <= 0.1f)
-        {
-            canMove = true;
-        }
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            if(menuSelection == 0)
-            {
-                s_Anim.SetBool("drop", true);
-              
-                //StartRandom();
-            }
-            else if(menuSelection == 1)
-            {
-                if (rowNumber.gameObject.activeSelf)
+                if (Input.GetAxisRaw("Vertical") > 0.1f && canMove && menuSelection > 0)
                 {
-                    p_Anim.SetBool("drop", false);
-                    rowNumber.gameObject.SetActive(false);
-                    rowText.enabled = false;
-                    speedSlider.gameObject.SetActive(false);
-                    foreach (var item in speedText)
+                    menuSelection--;
+                    pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
+                    canMove = false;
+                }
+                else if (Input.GetAxisRaw("Vertical") < -0.1f && canMove && menuSelection < menuButtons.Length - 1)
+                {
+                    menuSelection++;
+                    pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
+                    canMove = false;
+                }
+
+
+                if (Input.GetAxisRaw("Vertical") >= -0.1f && Input.GetAxisRaw("Vertical") <= 0.1f)
+                {
+                    canMove = true;
+                }
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    if (menuSelection == 0)
                     {
-                        item.enabled = false;
+                        currentMenu = Menu.options;
+                        s_Anim.SetBool("drop", true);
+
+                        //StartRandom();
+                    }
+                    else if (menuSelection == 1)
+                    {
+                        if (rowNumber.gameObject.activeSelf)
+                        {
+                            p_Anim.SetBool("drop", false);
+                            rowNumber.gameObject.SetActive(false);
+                            rowText.enabled = false;
+                            speedSlider.gameObject.SetActive(false);
+                            foreach (var item in speedText)
+                            {
+                                item.enabled = false;
+                            }
+                        }
+                        else
+                        {
+                            StartCoroutine(OptionsTimer());
+                            //rowNumber.gameObject.SetActive(true);
+                            //rowText.enabled = true;
+                            //speedSlider.gameObject.SetActive(true);
+                            //foreach (var item in speedText)
+                            //{
+                            //    item.enabled = true;
+                            //}
+                        }
+                    }
+                    else if (menuSelection == 2)
+                    {
+                        Application.Quit();
                     }
                 }
-                else
-                {
-                    StartCoroutine(OptionsTimer());
-                    //rowNumber.gameObject.SetActive(true);
-                    //rowText.enabled = true;
-                    //speedSlider.gameObject.SetActive(true);
-                    //foreach (var item in speedText)
-                    //{
-                    //    item.enabled = true;
-                    //}
-                }
-            }
-            else if(menuSelection == 2)
-            {
-                Application.Quit();
-            }
+
+
+                break;
+            case Menu.play:
+                break;
+            case Menu.options:
+                break;
+
         }
+
+        
 
     }
     IEnumerator OptionsTimer()
