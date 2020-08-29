@@ -99,11 +99,17 @@ public class BeetMovement : MonoBehaviour
                 break;
             case moveState.lose:
                 anim.SetBool("Lose", true);
-                ui.ShowButtons();
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    ui.ShowButtons();
+                }
                 break;
             case moveState.win:
                 anim.SetBool("Win", true);
-                ui.ShowButtons();
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    ui.ShowButtons();
+                }
                 break;
         }
     }

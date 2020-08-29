@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEditor;
+using UnityEngine.Assertions.Must;
 
 public class MainMenuSelector : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class MainMenuSelector : MonoBehaviour
     //Options Panel
     [SerializeField] Animator p_Anim;
     [SerializeField] Animator s_Anim;
+    [SerializeField] Animator mainMenu_Anim;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,8 @@ public class MainMenuSelector : MonoBehaviour
         pointer.transform.position = new Vector2(menuButtons[0].transform.position.x + 3, menuButtons[0].transform.position.y);
         menuSelection = 0;
 
+        pointer.gameObject.SetActive(false);
+
         rowNumber.gameObject.SetActive(false);
         rowText.enabled = false;
         speedSlider.gameObject.SetActive(false);
@@ -58,6 +62,7 @@ public class MainMenuSelector : MonoBehaviour
         {
             item.enabled = false;
         }
+        StartCoroutine(CursorVisibilityTimer());
     }
 
     // Update is called once per frame
@@ -67,7 +72,10 @@ public class MainMenuSelector : MonoBehaviour
         switch(currentMenu)
         {
             case Menu.main:
-
+                if (pointer.GetComponent<SpriteRenderer>().sortingOrder != 19)
+                {
+                    StartCoroutine(HandLayerTimer(19));
+                }
                 if (Input.GetAxisRaw("Vertical") > 0.1f && canMove && menuSelection > 0)
                 {
                     menuSelection--;
@@ -91,6 +99,7 @@ public class MainMenuSelector : MonoBehaviour
                 {
                     if (menuSelection == 0)
                     {
+                        mainMenu_Anim.SetBool("Up", false);
                         currentMenu = Menu.play;
                         playSelection = 0;
                         StartCoroutine(SetPlayCursor());
@@ -100,6 +109,7 @@ public class MainMenuSelector : MonoBehaviour
                     }
                     else if (menuSelection == 1)
                     {
+                        mainMenu_Anim.SetBool("Up", false);
                         optionRow = 0;
                         optionCol = 0;
                         StartCoroutine(SetOptionCursor());
@@ -129,13 +139,18 @@ public class MainMenuSelector : MonoBehaviour
                     }
                     else if (menuSelection == 2)
                     {
-                        Application.Quit();
+                        mainMenu_Anim.SetBool("Up", false);
+                        StartCoroutine(QuitTimer());
                     }
                 }
 
 
                 break;
             case Menu.play:
+                if (pointer.GetComponent<SpriteRenderer>().sortingOrder != 23)
+                {
+                    StartCoroutine(HandLayerTimer(23));
+                }
                 if (Input.GetAxisRaw("Vertical") > 0.1f && canMove && playSelection > 0)
                 {
                     playSelection--;
@@ -170,6 +185,7 @@ public class MainMenuSelector : MonoBehaviour
                         currentMenu = Menu.main;
                         pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
                         s_Anim.SetBool("drop", false);
+                        mainMenu_Anim.SetBool("Up", true);
                     }
                 }
 
@@ -187,6 +203,12 @@ public class MainMenuSelector : MonoBehaviour
 
     }
 
+    IEnumerator QuitTimer()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Application.Quit();
+    }
+
     IEnumerator OptionsTimer()
     {
         p_Anim.SetBool("drop", true);
@@ -200,6 +222,13 @@ public class MainMenuSelector : MonoBehaviour
         }
     }
 
+    IEnumerator HandLayerTimer(int x)
+    {
+        yield return new WaitForSeconds(1.5f);
+        pointer.GetComponent<SpriteRenderer>().sortingOrder = x;
+   
+
+    }
     public void StartRandom()
     {
         //sets the options for row/columns and beet speed when starting a random run
@@ -214,7 +243,11 @@ public class MainMenuSelector : MonoBehaviour
         //load the scene with random creation
         SceneManager.LoadScene(1);
     }
-
+    IEnumerator CursorVisibilityTimer()
+    {
+        yield return new WaitForSeconds(2.5f);
+        pointer.gameObject.SetActive(true);
+    }
     public void StartPuzzleLevel()
     {
         //to load puzzle level
