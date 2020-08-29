@@ -15,7 +15,15 @@ public class Tiles : MonoBehaviour
 
     public Sprite sprite;
 
-    public bool beetIsOn;
+    private bool beetIsOn;
+    public bool GetBeetOn()
+    {
+        return beetIsOn;
+    }
+    public void SetBeetOn(bool b)
+    {
+        beetIsOn = b;
+    }
 
     public int maxTurns;
     public int turns;

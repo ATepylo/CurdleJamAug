@@ -6,6 +6,7 @@ public class BeetMovement : MonoBehaviour
 {
     private GridManager grid;
     private PuzzleOneScript p1Grid;
+    private PuzzleTwoScript p2Grid;
     public GameObject[,] gridTiles;
 
     public Tiles currentTile;
@@ -17,6 +18,7 @@ public class BeetMovement : MonoBehaviour
     private Transform entry;
     private Transform exit;
     private Transform nextWaypoint;
+    private GameObject goalTile;
     [SerializeField]
     private float searchDistance; //so that the beet knows when it is close to a waypoint
 
@@ -57,14 +59,24 @@ public class BeetMovement : MonoBehaviour
             grid = FindObjectOfType<GridManager>();
             gridTiles = grid.GetBoard();
             currentTile = grid.startTile.GetComponent<Tiles>();/*gridTiles[0, 0].GetComponent<Tiles>(); *///sets it up on the 0 tile, we can change this if we want to start in other places
+            goalTile = grid.GetGoal();
         }
         else if(FindObjectOfType<PuzzleOneScript>())
         {
             p1Grid = FindObjectOfType<PuzzleOneScript>();
             gridTiles = p1Grid.GetBoard();
             currentTile = gridTiles[0, 0].GetComponent<Tiles>();
+            goalTile = p1Grid.GetGoal();
+        }
+        else if (FindObjectOfType<PuzzleTwoScript>())
+        {
+            p2Grid = FindObjectOfType<PuzzleTwoScript>();
+            gridTiles = p2Grid.GetBoard();
+            currentTile = gridTiles[2, 2].GetComponent<Tiles>();
+            goalTile = p2Grid.GetGoal();
         }
 
+        currentTile.SetBeetOn(true);
         nextWaypoint = currentTile.entryPoints[0];
         exit = nextWaypoint;
         transform.position = currentTile.transform.position;
@@ -109,7 +121,12 @@ public class BeetMovement : MonoBehaviour
         {
             if(nextWaypoint == currentTile.centre)
             {
-                nextWaypoint = exit;
+                if(currentTile.name == goalTile.name)
+                {
+                    currentState = moveState.win;
+                }
+                else
+                    nextWaypoint = exit;
             }
             else if(nextWaypoint == exit)
             {
@@ -141,10 +158,12 @@ public class BeetMovement : MonoBehaviour
                 }                
             }            
         }
-        if(Vector2.Distance(transform.position, grid.GetGoal().transform.position) < minDistance )
+        
+        if(Vector2.Distance(transform.position, goalTile.transform.position) < minDistance )
         {
-            nextTile = grid.GetGoal().GetComponent<Tiles>();
+            nextTile = goalTile.GetComponent<Tiles>();
         }
+        
        
         EntreTile(nextTile);
     }
@@ -152,8 +171,11 @@ public class BeetMovement : MonoBehaviour
     //called when a beet entres a new tile to find it the 
     private void EntreTile(Tiles newTile)
     {
-        
+        currentTile.SetBeetOn(false);
+
         currentTile = newTile;
+
+        currentTile.SetBeetOn(true);
     
         bool currentPoint = false;
 
@@ -178,9 +200,10 @@ public class BeetMovement : MonoBehaviour
                 }
             }
 
-            if (currentTile.GetComponent<Tiles>().GetGoal())
+            if (currentTile.GetComponent<Tiles>().GetGoal() && currentPoint)
             {
-                currentState = moveState.win;
+                nextWaypoint = currentTile.centre;
+                //currentState = moveState.win;
             }
             else if(!currentPoint)
             {
