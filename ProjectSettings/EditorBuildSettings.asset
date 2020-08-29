@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/movetesting.unity
     guid: 9704df467300a8e4ebd5c56dedbbae81
+  - enabled: 1
+    path: Assets/Scenes/PuzzleOne.unity
+    guid: 4d387e6b5c191c14d9c9916953a1116f
   m_configObjects: {}

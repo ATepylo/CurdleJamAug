@@ -6,7 +6,7 @@ public class Options : MonoBehaviour
 {
     public static bool created = false;
 
-    private int numberofRows;
+    private int numberofRows = 3;
     public int GetRows()
     {
         return numberofRows;
@@ -16,7 +16,7 @@ public class Options : MonoBehaviour
         numberofRows = i;
     }
 
-    private float beetSpeed;
+    private float beetSpeed = 0.5f;
     public float GetSpeed()
     {
         return beetSpeed;

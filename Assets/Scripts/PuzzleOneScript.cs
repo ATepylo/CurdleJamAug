@@ -39,6 +39,7 @@ public class PuzzleOneScript : MonoBehaviour
         beet = FindObjectOfType<BeetMovement>();
         board = new GameObject[rows, cols];
         GenerateGrid();
+        Debug.Log("awake");
     }
     // Start is called before the first frame update
     void Start()

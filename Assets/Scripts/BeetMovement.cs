@@ -35,6 +35,8 @@ public class BeetMovement : MonoBehaviour
     public GameObject directionIndicator;
     private Vector3 direction;
 
+    private bool coolDown = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +52,7 @@ public class BeetMovement : MonoBehaviour
 
     public void SetUpBeet()
     {
+        coolDown = false;
         currentState = moveState.stopped;
         StartCoroutine(DelayedStart());
         anim = GetComponentInChildren<Animator>();
@@ -99,16 +102,18 @@ public class BeetMovement : MonoBehaviour
                 break;
             case moveState.lose:
                 anim.SetBool("Lose", true);
-                if (Input.GetKeyUp(KeyCode.Space))
+                if (!coolDown)
                 {
-                    ui.ShowButtons();
+                    StartCoroutine(ShowUI());
+                    coolDown = true;
                 }
                 break;
             case moveState.win:
                 anim.SetBool("Win", true);
-                if (Input.GetKeyUp(KeyCode.Space))
+                if (!coolDown)
                 {
-                    ui.ShowButtons();
+                    StartCoroutine(ShowUI());
+                    coolDown = true;
                 }
                 break;
         }
@@ -257,4 +262,10 @@ public class BeetMovement : MonoBehaviour
 
     }
 
+
+    IEnumerator ShowUI()
+    {
+        yield return new WaitForSeconds(2.5f);
+        ui.ShowButtons();
+    }
 }

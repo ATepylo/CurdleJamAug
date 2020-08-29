@@ -3333,9 +3333,9 @@ MonoBehaviour:
   - {fileID: 1503878239}
   - {fileID: 473111065}
   rowsButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 640717536}
+  - {fileID: 1235377782}
+  - {fileID: 1997988613}
   speedButtons:
   - {fileID: 468867592}
   - {fileID: 5691489}
@@ -11263,7 +11263,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 13
+  m_SortingOrder: 24
   m_Sprite: {fileID: 1828130753274820275, guid: fef5509bc0d32864ba4be11db39db8b2,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

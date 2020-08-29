@@ -17,6 +17,7 @@ public class UI : MonoBehaviour
     public Button restart;
     public Button menu;
     public Button quit;
+    //public GameObject levelEndButtons;
     private GridManager gridM;
 
     //Timer
@@ -39,6 +40,8 @@ public class UI : MonoBehaviour
 
 
         gridM = FindObjectOfType<GridManager>();
+
+        //levelEndButtons.SetActive(false);
         restart.gameObject.SetActive(false);
         menu.gameObject.SetActive(false);
         quit.gameObject.SetActive(false);
@@ -96,6 +99,8 @@ public class UI : MonoBehaviour
 
     public void ShowButtons()
     {
+        //Debug.Log("show them");
+        //levelEndButtons.SetActive(true);
         restart.gameObject.SetActive(true);
         menu.gameObject.SetActive(true);
         quit.gameObject.SetActive(true);
@@ -104,7 +109,13 @@ public class UI : MonoBehaviour
 
     public void Restart()
     {
-        gridM.ResetGrid();
+        if(gridM)
+        {
+             gridM.ResetGrid();
+        }
+
+
+        //levelEndButtons.SetActive(false);
         restart.gameObject.SetActive(false);
         menu.gameObject.SetActive(false);
         quit.gameObject.SetActive(false);

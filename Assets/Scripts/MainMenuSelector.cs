@@ -72,10 +72,11 @@ public class MainMenuSelector : MonoBehaviour
         switch(currentMenu)
         {
             case Menu.main:
-                if (pointer.GetComponent<SpriteRenderer>().sortingOrder != 19)
+                if (pointer.GetComponent<SpriteRenderer>().sortingOrder != 25)
                 {
-                    StartCoroutine(HandLayerTimer(19));
+                    StartCoroutine(HandLayerTimer(25));
                 }
+
                 if (Input.GetAxisRaw("Vertical") > 0.1f && canMove && menuSelection > 0)
                 {
                     menuSelection--;
@@ -100,10 +101,10 @@ public class MainMenuSelector : MonoBehaviour
                     if (menuSelection == 0)
                     {
                         mainMenu_Anim.SetBool("Up", false);
-                        currentMenu = Menu.play;
                         playSelection = 0;
                         StartCoroutine(SetPlayCursor());
                         s_Anim.SetBool("drop", true);
+                        currentMenu = Menu.play;
 
                         //StartRandom();
                     }
@@ -113,7 +114,8 @@ public class MainMenuSelector : MonoBehaviour
                         optionRow = 0;
                         optionCol = 0;
                         StartCoroutine(SetOptionCursor());
-                        p_Anim.SetBool("drop", false);
+                        p_Anim.SetBool("drop", true);
+                        currentMenu = Menu.options;
                         //if (rowNumber.gameObject.activeSelf)
                         //{
                         //    p_Anim.SetBool("drop", false);
@@ -183,7 +185,7 @@ public class MainMenuSelector : MonoBehaviour
                     else if(playSelection == 2)
                     {
                         currentMenu = Menu.main;
-                        pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
+                        StartCoroutine(SetMenuCursor());
                         s_Anim.SetBool("drop", false);
                         mainMenu_Anim.SetBool("Up", true);
                     }
@@ -192,8 +194,84 @@ public class MainMenuSelector : MonoBehaviour
                 break;
             case Menu.options:
                 //add options for rows here
+                if(optionRow == 0)
+                {
+                    if (Input.GetAxisRaw("Horizontal") > 0.1f && canMove && optionCol < rowsButtons.Length - 1)
+                    {
+                        optionCol++;
+                        pointer.transform.position = new Vector2(rowsButtons[optionCol].transform.position.x, rowsButtons[optionCol].transform.position.y);
+                        canMove = false;
+                    }
+                    else if (Input.GetAxisRaw("Horizontal") < -0.1f && canMove && optionCol > 0)
+                    {
+                        optionCol--;
+                        pointer.transform.position = new Vector2(rowsButtons[optionCol].transform.position.x, rowsButtons[optionCol].transform.position.y);
+                        canMove = false;
+                    }
 
+                    if (Input.GetAxisRaw("Horizontal") >= -0.1f && Input.GetAxisRaw("Horizontal") <= 0.1f)
+                    {
+                        canMove = true;
+                    }
 
+                    if(Input.GetKeyDown(KeyCode.Space))
+                    {
+                        if (optionCol == 0)
+                            option.SetRows(3);
+                        else if (optionCol == 1)
+                            option.SetRows(5);
+                        else if (optionCol == 2)
+                            option.SetRows(7);
+
+                        optionCol = 0;
+                        pointer.transform.position = new Vector2(speedButtons[optionCol].transform.position.x + 1, speedButtons[optionCol].transform.position.y);
+                        optionRow++;
+                    }
+                }
+                else if(optionRow == 1)
+                {
+                    if (Input.GetAxisRaw("Horizontal") > 0.1f && canMove && optionCol < rowsButtons.Length - 1)
+                    {
+                        optionCol++;
+                        pointer.transform.position = new Vector2(speedButtons[optionCol].transform.position.x + 1, speedButtons[optionCol].transform.position.y);
+                        canMove = false;
+                    }
+                    else if (Input.GetAxisRaw("Horizontal") < -0.1f && canMove && optionCol > 0)
+                    {
+                        optionCol--;
+                        pointer.transform.position = new Vector2(speedButtons[optionCol].transform.position.x + 1, speedButtons[optionCol].transform.position.y);
+                        canMove = false;
+                    }
+
+                    if (Input.GetAxisRaw("Horizontal") >= -0.1f && Input.GetAxisRaw("Horizontal") <= 0.1f)
+                    {
+                        canMove = true;
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        if (optionCol == 0)
+                            option.SetSpeed(0.2f);
+                        else if (optionCol == 1)
+                            option.SetSpeed(0.5f);
+                        else if (optionCol == 2)
+                            option.SetSpeed(0.8f);
+
+                        optionCol = 0;
+                        pointer.transform.position = new Vector2(backButton.transform.position.x + 1, backButton.transform.position.y);
+                        optionRow++;
+                    }
+                }
+                else if(optionRow == 2)
+                {
+                    if(Input.GetKeyDown(KeyCode.Space))
+                    {
+                        currentMenu = Menu.main;
+                        StartCoroutine(SetMenuCursor());
+                        p_Anim.SetBool("drop", false);
+                        mainMenu_Anim.SetBool("Up", true);
+                    }                    
+                }
 
                 break;
 
@@ -206,6 +284,7 @@ public class MainMenuSelector : MonoBehaviour
     IEnumerator QuitTimer()
     {
         yield return new WaitForSeconds(1.5f);
+        Debug.Log("quit");
         Application.Quit();
     }
 
@@ -262,8 +341,14 @@ public class MainMenuSelector : MonoBehaviour
     IEnumerator SetOptionCursor()
     {
         yield return new WaitForSeconds(1.5f);
-        pointer.transform.position = new Vector2(rowsButtons[0].transform.position.x + 2, rowsButtons[0].transform.position.y);
+        pointer.transform.position = new Vector2(rowsButtons[0].transform.position.x, rowsButtons[0].transform.position.y);
         //pointer.transform.position = new Vector2(speedButtons[0].transform.position.x + 2, speedButtons[0].transform.position.y);
+    }
+
+    IEnumerator SetMenuCursor()
+    {
+        yield return new WaitForSeconds(1.5f);
+        pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
     }
 
 }
