@@ -22,6 +22,7 @@ public class UI : MonoBehaviour
     //Timer
     float l_Time = 120;
     [SerializeField] Text t_Text;
+    [SerializeField] Text score_Text;
     [SerializeField] GameObject t_Size;
     Vector2 t_StartSize;
     // Start is called before the first frame update
