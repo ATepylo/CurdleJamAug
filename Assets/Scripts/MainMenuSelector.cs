@@ -15,13 +15,17 @@ public class MainMenuSelector : MonoBehaviour
     public Dropdown rowNumber;
     public Slider speedSlider;
     public Text rowText;
-    public Text speedText;
+    public Image[] speedText;
 
     [SerializeField] GameObject[] menuButtons;
     [SerializeField] GameObject pointer;
     int menuSelection = 0;
 
     private bool canMove;
+
+    //Options Panel
+    [SerializeField] Animator p_Anim;
+    [SerializeField] Animator s_Anim;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,25 +37,15 @@ public class MainMenuSelector : MonoBehaviour
         rowNumber.gameObject.SetActive(false);
         rowText.enabled = false;
         speedSlider.gameObject.SetActive(false);
-        speedText.enabled = false;
+        foreach (var item in speedText)
+        {
+            item.enabled = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1)
-        //{
-        //    if (Input.GetAxisRaw("Vertical") == -1)
-        //    {
-        //        menuSelection++;
-        //        pointer.transform.DOMoveY(/*menuButtons[menuSelection-1].transform.position.y*/pointer.transform.position.x -1, 1, false);
-        //    }
-        //    else if (Input.GetAxisRaw("Vertical") == 1)
-        //    {
-        //        menuSelection--;
-        //        pointer.transform.DOMoveY(/*menuButtons[menuSelection-1].transform.position.y*/pointer.transform.position.x + 1, 1, false);
-        //    }
-        //}
 
         if (Input.GetAxisRaw("Vertical") > 0.1f && canMove && menuSelection > 0)
         {
@@ -76,23 +70,33 @@ public class MainMenuSelector : MonoBehaviour
         {
             if(menuSelection == 0)
             {
-                StartRandom();
+                s_Anim.SetBool("drop", true);
+              
+                //StartRandom();
             }
             else if(menuSelection == 1)
             {
-                if(rowNumber.gameObject.activeSelf)
+                if (rowNumber.gameObject.activeSelf)
                 {
+                    p_Anim.SetBool("drop", false);
                     rowNumber.gameObject.SetActive(false);
                     rowText.enabled = false;
                     speedSlider.gameObject.SetActive(false);
-                    speedText.enabled = false;
+                    foreach (var item in speedText)
+                    {
+                        item.enabled = false;
+                    }
                 }
                 else
                 {
-                    rowNumber.gameObject.SetActive(true);
-                    rowText.enabled = true;
-                    speedSlider.gameObject.SetActive(true);
-                    speedText.enabled = true;
+                    StartCoroutine(OptionsTimer());
+                    //rowNumber.gameObject.SetActive(true);
+                    //rowText.enabled = true;
+                    //speedSlider.gameObject.SetActive(true);
+                    //foreach (var item in speedText)
+                    //{
+                    //    item.enabled = true;
+                    //}
                 }
             }
             else if(menuSelection == 2)
@@ -101,6 +105,18 @@ public class MainMenuSelector : MonoBehaviour
             }
         }
 
+    }
+    IEnumerator OptionsTimer()
+    {
+        p_Anim.SetBool("drop", true);
+        yield return new WaitForSeconds(1.5f);
+        rowNumber.gameObject.SetActive(true);
+        rowText.enabled = true;
+        speedSlider.gameObject.SetActive(true);
+        foreach (var item in speedText)
+        {
+            item.enabled = true;
+        }
     }
 
     public void StartRandom()
