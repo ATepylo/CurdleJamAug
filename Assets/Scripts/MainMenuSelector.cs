@@ -101,10 +101,13 @@ public class MainMenuSelector : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    mainMenu_Anim.SetBool("Up", false);
+                    AudioMan.a_Instance.PlayOneShotByName("UI_Select");
+
                     if (menuSelection == 0)
                     {
-                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
-                        mainMenu_Anim.SetBool("Up", false);
+                        //AudioMan.a_Instance.PlayOneShotByName("UI_Select");
+                        //mainMenu_Anim.SetBool("Up", false);
                         playSelection = 0;
                         StartCoroutine(SetPlayCursor());
                         s_Anim.SetBool("drop", true);
@@ -114,8 +117,8 @@ public class MainMenuSelector : MonoBehaviour
                     }
                     else if (menuSelection == 1)
                     {
-                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
-                        mainMenu_Anim.SetBool("Up", false);
+                        //AudioMan.a_Instance.PlayOneShotByName("UI_Select");
+                        //mainMenu_Anim.SetBool("Up", false);
                         optionRow = 0;
                         optionCol = 0;
                         StartCoroutine(SetOptionCursor());
@@ -146,15 +149,15 @@ public class MainMenuSelector : MonoBehaviour
                     }
                     else if(menuSelection == 2)
                     {
-                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
-                        mainMenu_Anim.SetBool("Up", false);
+                       // AudioMan.a_Instance.PlayOneShotByName("UI_Select");
+                        //mainMenu_Anim.SetBool("Up", false);
                         credits_Anim.SetBool("drop", true);
                         StartCoroutine(CreditsTimer());
                     }
                     else if (menuSelection == 3)
                     {
-                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
-                        mainMenu_Anim.SetBool("Up", false);
+                        //AudioMan.a_Instance.PlayOneShotByName("UI_Select");
+                        //mainMenu_Anim.SetBool("Up", false);
                         StartCoroutine(QuitTimer());
                     }
                 }
@@ -189,19 +192,19 @@ public class MainMenuSelector : MonoBehaviour
 
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
+                    AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                     if(playSelection == 0)
                     {
-                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         SceneManager.LoadScene(2); // have first scene in build index 2
                     }
                     else if(playSelection == 1)
                     {
-                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
+                       // AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         SceneManager.LoadScene(1); // have random scene in build index 1
                     }
                     else if(playSelection == 2)
                     {
-                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
+                        //AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         currentMenu = Menu.main;
                         StartCoroutine(SetMenuCursor());
                         s_Anim.SetBool("drop", false);
