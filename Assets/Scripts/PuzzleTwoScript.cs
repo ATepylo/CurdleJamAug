@@ -83,6 +83,7 @@ public class PuzzleTwoScript : MonoBehaviour
         //goalTile = board[0, 2];
         //board[0, 2].GetComponent<Tiles>().SetGoal(true);
 
+        //set up a goal tile (off the board)
         goalTile = (GameObject)Instantiate(Resources.Load("Prefabs/Goal Tile"), transform);/*new Vector2(Random.Range(0, cols - 1), (rows + 1) * tileSize))*/;
         //goalTile.transform.position = new Vector2(Random.Range(0, cols - 2), ((-rows/2) * tileSize)-1);
         goalTile.transform.position = new Vector2(cols / 2, ((rows / 2) * tileSize) + 1);

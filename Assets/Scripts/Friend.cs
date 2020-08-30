@@ -44,18 +44,16 @@ public class Friend : MonoBehaviour
             case Status.following:
                 transform.position = Vector2.MoveTowards(transform.position, beet.GetFollowLoc(), (beet.GetSpeed() - speed) * Time.deltaTime);
                 break;
-        }
-
-        
+        }        
     }
 
     public void CollectFriend()
     {
         //add score to ui tracker
         currentStatus = Status.following;
-
     }
 
+    //to be called when level resets (if we use friends on random maps)
     public void ResetFriend()
     {
         transform.position = startLocation;

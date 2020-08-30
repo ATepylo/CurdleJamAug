@@ -57,7 +57,6 @@ public class PuzzleOneScript : MonoBehaviour
 
     private void GenerateGrid()
     {
-
         //GameObject referenceTile = (GameObject)Instantiate(Resources.Load("Prefabs/Test Tile"));
         int timesThrough = 0;
         for (int row = 0; row < rows; row++)
@@ -79,6 +78,7 @@ public class PuzzleOneScript : MonoBehaviour
 
         transform.position = new Vector2(-gridW / 2 + tileSize / 2, gridH / 2 - tileSize / 2);
 
+        //set goal tile to whichever one you want
         goalTile = board[1, 1];
         board[1,1].GetComponent<Tiles>().SetGoal(true);
     }

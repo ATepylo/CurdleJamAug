@@ -87,6 +87,7 @@ public class BeetMovement : MonoBehaviour
             currentTile = gridTiles[2, 2].GetComponent<Tiles>();
             goalTile = p2Grid.GetGoal();
         }
+        //when you add a new puzzle add it to the above. Only need to add here
 
         currentTile.SetBeetOn(true);
         nextWaypoint = currentTile.entryPoints[0];
@@ -267,7 +268,7 @@ public class BeetMovement : MonoBehaviour
         {
             //if it is not at either entry point, the beat will splater at the side of the tile
             currentState = moveState.lose;
-            Debug.Log("dead cuase blank space");
+            //Debug.Log("dead cuase blank space");
         }
 
     }
