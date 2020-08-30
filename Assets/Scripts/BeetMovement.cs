@@ -14,6 +14,10 @@ public class BeetMovement : MonoBehaviour
     
     [SerializeField]
     private float moveSpeed;
+    public float GetSpeed()
+    {
+        return moveSpeed;
+    }
 
     private Transform entry;
     private Transform exit;
@@ -31,9 +35,14 @@ public class BeetMovement : MonoBehaviour
     private Options option;
     private UI ui;
 
-    //for
+    //for showing where the beet is going
     public GameObject directionIndicator;
     private Vector3 direction;
+    private Vector3 followLocation;
+    public Vector3 GetFollowLoc()
+    {
+        return followLocation;
+    }
 
     private bool coolDown = false;
 
@@ -126,6 +135,7 @@ public class BeetMovement : MonoBehaviour
 
         direction = exit.transform.position - transform.position;
         directionIndicator.transform.position = transform.position + direction.normalized * 0.75f;
+        followLocation = transform.position - direction.normalized * 0.75f;
 
         //to switch waypoints
         if(Vector2.Distance(transform.position, nextWaypoint.position) <= searchDistance)

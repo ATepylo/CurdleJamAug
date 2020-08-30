@@ -113,7 +113,10 @@ public class UI : MonoBehaviour
         {
              gridM.ResetGrid();
         }
-
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
 
         //levelEndButtons.SetActive(false);
         restart.gameObject.SetActive(false);
