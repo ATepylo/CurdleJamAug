@@ -147,6 +147,7 @@ public class MainMenuSelector : MonoBehaviour
                     else if(menuSelection == 2)
                     {
                         AudioMan.a_Instance.PlayOneShotByName("UI_Select");
+                        mainMenu_Anim.SetBool("Up", false);
                         credits_Anim.SetBool("drop", true);
                         StartCoroutine(CreditsTimer());
                     }
@@ -379,6 +380,7 @@ public class MainMenuSelector : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         credits_Anim.SetBool("drop", false);
+        mainMenu_Anim.SetBool("Up", true);
     }
 
 }
