@@ -51,6 +51,7 @@ public class MainMenuSelector : MonoBehaviour
         currentMenu = Menu.main;
         option = FindObjectOfType<Options>();
         canMove = true;
+        mainMenu_Anim.SetBool("Up", true);
         pointer.transform.position = new Vector2(menuButtons[0].transform.position.x + 3, menuButtons[0].transform.position.y);
         menuSelection = 0;
 
@@ -63,7 +64,9 @@ public class MainMenuSelector : MonoBehaviour
         {
             item.enabled = false;
         }
-        StartCoroutine(CursorVisibilityTimer());
+
+
+        StartCoroutine(CursorVisibilityTimer(2.5f));
     }
 
     // Update is called once per frame
@@ -107,6 +110,7 @@ public class MainMenuSelector : MonoBehaviour
                         mainMenu_Anim.SetBool("Up", false);
                         playSelection = 0;
                         StartCoroutine(SetPlayCursor());
+                        StartCoroutine(CursorVisibilityTimer(1.5f));
                         s_Anim.SetBool("drop", true);
                         currentMenu = Menu.play;
 
@@ -119,6 +123,7 @@ public class MainMenuSelector : MonoBehaviour
                         optionRow = 0;
                         optionCol = 0;
                         StartCoroutine(SetOptionCursor());
+                        StartCoroutine(CursorVisibilityTimer(1.5f));
                         p_Anim.SetBool("drop", true);
                         currentMenu = Menu.options;
                         //if (rowNumber.gameObject.activeSelf)
@@ -149,14 +154,18 @@ public class MainMenuSelector : MonoBehaviour
                         AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         mainMenu_Anim.SetBool("Up", false);
                         credits_Anim.SetBool("drop", true);
+                        StartCoroutine(CursorVisibilityTimer(7));
                         StartCoroutine(CreditsTimer());
                     }
                     else if (menuSelection == 3)
                     {
                         AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         mainMenu_Anim.SetBool("Up", false);
+                        StartCoroutine(CursorVisibilityTimer(1.5f));
                         StartCoroutine(QuitTimer());
                     }
+
+                    pointer.gameObject.SetActive(false);
                 }
 
 
@@ -207,6 +216,9 @@ public class MainMenuSelector : MonoBehaviour
                         s_Anim.SetBool("drop", false);
                         mainMenu_Anim.SetBool("Up", true);
                     }
+
+                    pointer.gameObject.SetActive(false);
+                    StartCoroutine(CursorVisibilityTimer(2f));
                 }
 
                 break;
@@ -295,6 +307,8 @@ public class MainMenuSelector : MonoBehaviour
                         StartCoroutine(SetMenuCursor());
                         p_Anim.SetBool("drop", false);
                         mainMenu_Anim.SetBool("Up", true);
+                        pointer.gameObject.SetActive(false);
+                        StartCoroutine(CursorVisibilityTimer(2f));
                     }                    
                 }
 
@@ -347,9 +361,9 @@ public class MainMenuSelector : MonoBehaviour
         //load the scene with random creation
         SceneManager.LoadScene(1);
     }
-    IEnumerator CursorVisibilityTimer()
+    IEnumerator CursorVisibilityTimer(float f)
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(f);
         pointer.gameObject.SetActive(true);
     }
     public void StartPuzzleLevel()
@@ -372,7 +386,7 @@ public class MainMenuSelector : MonoBehaviour
 
     IEnumerator SetMenuCursor()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
         pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
     }
 
