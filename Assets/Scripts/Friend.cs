@@ -38,13 +38,18 @@ public class Friend : MonoBehaviour
             case Status.offboard:
                 break;
             case Status.onboard:
-                if (Vector2.Distance(transform.position, beet.transform.position) < 0.2f)
+                if (Vector2.Distance(transform.position, beet.transform.position) < 0.3f)
                     CollectFriend();
                 break;
             case Status.following:
                 transform.position = Vector2.MoveTowards(transform.position, beet.GetFollowLoc(), (beet.GetSpeed() - speed) * Time.deltaTime);
                 break;
-        }        
+        }
+        
+        if(beet.GetMoveState() == BeetMovement.moveState.win || beet.GetMoveState() == BeetMovement.moveState.lose)
+        {
+            currentStatus = Status.offboard;
+        }
     }
 
     public void CollectFriend()

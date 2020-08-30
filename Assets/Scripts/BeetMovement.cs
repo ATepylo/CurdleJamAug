@@ -28,8 +28,12 @@ public class BeetMovement : MonoBehaviour
     private float searchDistance; //so that the beet knows when it is close to a waypoint
 
 
-    private enum moveState { moving, stopped, lose, win }
+    public enum moveState { moving, stopped, lose, win }
     private moveState currentState = moveState.stopped;
+    public moveState GetMoveState()
+    {
+        return currentState;
+    }
 
     Animator anim;
 

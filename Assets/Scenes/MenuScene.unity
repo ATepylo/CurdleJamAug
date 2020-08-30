@@ -1615,6 +1615,12 @@ Material:
     - _InnerOutlineColor: {r: 1, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!95 &191964016 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4166895572450564130, guid: ba422fac809d612498fd42c75039e294,
+    type: 3}
+  m_PrefabInstance: {fileID: 744128523}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &209345815
 GameObject:
   m_ObjectHideFlags: 0
@@ -4247,6 +4253,7 @@ MonoBehaviour:
   menuButtons:
   - {fileID: 647781385}
   - {fileID: 807678657}
+  - {fileID: 398079655}
   - {fileID: 1365551760}
   pointer: {fileID: 8111961043625289875}
   playButtons:
@@ -4265,7 +4272,7 @@ MonoBehaviour:
   p_Anim: {fileID: 309707503}
   s_Anim: {fileID: 4166895572993757324}
   mainMenu_Anim: {fileID: 1765447198}
-  credits_Anim: {fileID: 0}
+  credits_Anim: {fileID: 191964016}
 --- !u!114 &557119379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5231,6 +5238,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 1908144907}
+    - target: {fileID: 4166895572450564131, guid: ba422fac809d612498fd42c75039e294,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4166895572450564157, guid: ba422fac809d612498fd42c75039e294,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5295,6 +5307,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Credits
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166895573515600790, guid: ba422fac809d612498fd42c75039e294,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba422fac809d612498fd42c75039e294, type: 3}

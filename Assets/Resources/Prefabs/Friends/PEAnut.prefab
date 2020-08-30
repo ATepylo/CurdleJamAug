@@ -123,6 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7440628273001703153}
+  - component: {fileID: -6512262793113657780}
   m_Layer: 0
   m_Name: PEAnut
   m_TagString: Untagged
@@ -145,3 +146,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6512262793113657780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7440628273001703152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75862f35ba6613c4aab3324bf59f0253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 500
+  speed: 0.1
+  currentStatus: 0

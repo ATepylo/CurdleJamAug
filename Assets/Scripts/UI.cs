@@ -246,6 +246,13 @@ public class UI : MonoBehaviour
     {
         //Debug.Log(_check);
         //Debug.Log(maxTurns);
-        score += (maxTurns - _check) * 100;
+        if(!FindObjectOfType<GridManager>())
+        {
+            score += (maxTurns - _check) * 100;
+        }
+        else
+        {
+            score += (100 - _check) * 100;
+        }
     }
 }
