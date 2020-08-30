@@ -83,6 +83,7 @@ public class PuzzleX : MonoBehaviour
         goalTile = board[0, 0];
         board[0, 0].GetComponent<Tiles>().SetGoal(true);
         goalTile.transform.rotation *= Quaternion.Euler(0, 0, 180);
+        goalTile.transform.localScale = new Vector2(1.77f, 1.77f);
 
         ////set up a goal tile (off the board)
         //goalTile = (GameObject)Instantiate(Resources.Load("Prefabs/Goal Tile"), transform);/*new Vector2(Random.Range(0, cols - 1), (rows + 1) * tileSize))*/;
@@ -93,6 +94,6 @@ public class PuzzleX : MonoBehaviour
 
         //rotates the tiles to correct orientation on start
         board[2, 2].transform.rotation *= Quaternion.Euler(0, 0, -90);
-        board[4,4].transform.rotation *= Quaternion.Euler(0, 0, 90);
+        board[4,4].transform.rotation *= Quaternion.Euler(0, 0, -90);
     }
 }

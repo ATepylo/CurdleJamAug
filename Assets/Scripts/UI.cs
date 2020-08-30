@@ -17,6 +17,7 @@ public class UI : MonoBehaviour
     public Button restart;
     public Button menu;
     public Button quit;
+    public Button next;
     //public GameObject levelEndButtons;
     private GridManager gridM;
 
@@ -45,6 +46,7 @@ public class UI : MonoBehaviour
         restart.gameObject.SetActive(false);
         menu.gameObject.SetActive(false);
         quit.gameObject.SetActive(false);
+        next.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -97,10 +99,21 @@ public class UI : MonoBehaviour
 
    
 
-    public void ShowButtons()
+    public void ShowWinButtons()
     {
         //Debug.Log("show them");
         //levelEndButtons.SetActive(true);
+        restart.gameObject.SetActive(true);
+        menu.gameObject.SetActive(true);
+        quit.gameObject.SetActive(true);
+        if(!gridM)
+        {
+            next.gameObject.SetActive(true);
+        }
+    }
+
+    public void ShowLoseButtons()
+    {
         restart.gameObject.SetActive(true);
         menu.gameObject.SetActive(true);
         quit.gameObject.SetActive(true);
@@ -122,6 +135,7 @@ public class UI : MonoBehaviour
         restart.gameObject.SetActive(false);
         menu.gameObject.SetActive(false);
         quit.gameObject.SetActive(false);
+        next.gameObject.SetActive(false);
     }
     public void Menu()
     {
@@ -130,5 +144,18 @@ public class UI : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void Next()
+    {
+        Debug.Log(SceneManager.sceneCountInBuildSettings);
+
+        if ((SceneManager.GetActiveScene().buildIndex + 1) < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+            SceneManager.LoadScene(0);
+
     }
 }

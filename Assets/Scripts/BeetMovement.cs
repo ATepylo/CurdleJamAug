@@ -7,6 +7,7 @@ public class BeetMovement : MonoBehaviour
     private GridManager grid;
     private PuzzleOneScript p1Grid;
     private PuzzleTwoScript p2Grid;
+    private PuzzleX pXGrid;
     public GameObject[,] gridTiles;
 
     public Tiles currentTile;
@@ -87,6 +88,13 @@ public class BeetMovement : MonoBehaviour
             currentTile = gridTiles[2, 2].GetComponent<Tiles>();
             goalTile = p2Grid.GetGoal();
         }
+        else if(FindObjectOfType<PuzzleX>())
+        {
+            pXGrid = FindObjectOfType<PuzzleX>();
+            gridTiles = pXGrid.GetBoard();
+            currentTile = gridTiles[4, 4].GetComponent<Tiles>();
+            goalTile = pXGrid.GetGoal();
+        }
         //when you add a new puzzle add it to the above. Only need to add here
 
         currentTile.SetBeetOn(true);
@@ -114,7 +122,7 @@ public class BeetMovement : MonoBehaviour
                 anim.SetBool("Lose", true);
                 if (!coolDown)
                 {
-                    StartCoroutine(ShowUI());
+                    StartCoroutine(ShowLoseUI());
                     coolDown = true;
                 }
                 break;
@@ -122,7 +130,7 @@ public class BeetMovement : MonoBehaviour
                 anim.SetBool("Win", true);
                 if (!coolDown)
                 {
-                    StartCoroutine(ShowUI());
+                    StartCoroutine(ShowWinUI());
                     coolDown = true;
                 }
                 break;
@@ -274,9 +282,15 @@ public class BeetMovement : MonoBehaviour
     }
 
 
-    IEnumerator ShowUI()
+    IEnumerator ShowWinUI()
     {
         yield return new WaitForSeconds(2.5f);
-        ui.ShowButtons();
+        ui.ShowWinButtons();
+    }
+
+    IEnumerator ShowLoseUI()
+    {
+        yield return new WaitForSeconds(2.5f);
+        ui.ShowLoseButtons();
     }
 }

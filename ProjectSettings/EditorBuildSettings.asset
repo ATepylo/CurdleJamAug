@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PuzzleOne.unity
     guid: 4d387e6b5c191c14d9c9916953a1116f
+  - enabled: 1
+    path: Assets/Scenes/PuzzleTwo.unity
+    guid: 5c39116d77b673245ada4022e5c74dd0
+  - enabled: 1
+    path: Assets/Scenes/PuzzleX.unity
+    guid: 4466d45267c811a40a948862169bb4de
   m_configObjects: {}
