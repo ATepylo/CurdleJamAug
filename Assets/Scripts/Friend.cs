@@ -50,6 +50,7 @@ public class Friend : MonoBehaviour
     public void CollectFriend()
     {
         //add score to ui tracker
+        ui.AddScore(score);
         currentStatus = Status.following;
     }
 

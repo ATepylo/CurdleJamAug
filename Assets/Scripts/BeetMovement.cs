@@ -131,6 +131,7 @@ public class BeetMovement : MonoBehaviour
                 if (!coolDown)
                 {
                     StartCoroutine(ShowWinUI());
+                    ui.TotalScore();
                     coolDown = true;
                 }
                 break;
