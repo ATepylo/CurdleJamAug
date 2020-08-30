@@ -82,14 +82,14 @@ public class MainMenuSelector : MonoBehaviour
                 {
                     menuSelection--;
                     AudioMan.a_Instance.PlayOneShotByName("UI_Move");
-                    pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
+                    pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 2, menuButtons[menuSelection].transform.position.y);
                     canMove = false;
                 }
                 else if (Input.GetAxisRaw("Vertical") < -0.1f && canMove && menuSelection < menuButtons.Length - 1)
                 {
                     menuSelection++;
                     AudioMan.a_Instance.PlayOneShotByName("UI_Move");
-                    pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
+                    pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 2, menuButtons[menuSelection].transform.position.y);
                     canMove = false;
                 }
 
@@ -144,7 +144,13 @@ public class MainMenuSelector : MonoBehaviour
                         //    //}
                         //}
                     }
-                    else if (menuSelection == 2)
+                    else if(menuSelection == 2)
+                    {
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
+                        credits_Anim.SetBool("drop", true);
+                        StartCoroutine(CreditsTimer());
+                    }
+                    else if (menuSelection == 3)
                     {
                         AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         mainMenu_Anim.SetBool("Up", false);
@@ -367,6 +373,12 @@ public class MainMenuSelector : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
+    }
+
+    IEnumerator CreditsTimer()
+    {
+        yield return new WaitForSeconds(5);
+        credits_Anim.SetBool("drop", false);
     }
 
 }
