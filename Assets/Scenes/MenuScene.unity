@@ -7035,6 +7035,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4299478693138723147, guid: 655884b25bd9cb54b8848856045c2804,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 49
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 655884b25bd9cb54b8848856045c2804, type: 3}
 --- !u!21 &1011636412
@@ -14514,7 +14519,7 @@ PrefabInstance:
     - target: {fileID: 5347778504214811404, guid: c01afd852c5084f4388017ff3dbb7fe9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5347778504214811406, guid: c01afd852c5084f4388017ff3dbb7fe9,
         type: 3}
