@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 public class AudioMan : MonoBehaviour
 {
 
@@ -29,7 +30,7 @@ public class AudioMan : MonoBehaviour
     #endregion
 
     readonly float levelMusicDelay = 0.4f;
-
+    
     private void Awake()
     {
         //levelMusic = GameObject.FindGameObjectWithTag("m_Level").GetComponent<AudioSource>();
@@ -41,8 +42,19 @@ public class AudioMan : MonoBehaviour
     }
     private void OnEnable()
     {
-        StartCoroutine(PlayMusic("LevelOne"));
-        
+        //if(SceneManager.GetActiveScene().ToString() == "MenuScene")
+        //{
+        //    StartCoroutine(PlayMusic("Menu"));
+
+        //}
+        //if (SceneManager.GetActiveScene().ToString() == "PuzzleOne")
+        //{
+        //    StartCoroutine(PlayMusic("LevelOne"));
+        //}
+        //if (SceneManager.GetActiveScene().ToString() == "movetesting")
+        //{
+            StartCoroutine(PlayMusic("Random"));
+        //}
     }
     private void Update()
     {
@@ -55,6 +67,7 @@ public class AudioMan : MonoBehaviour
         yield return new WaitForSeconds(levelMusicDelay);
         foreach (LevelMusic song in lvl_Music) { if (song.name == clipName) levelMusic.clip = song.clip; levelMusic.Play(); }
         levelMusic.Play();
+        levelMusic.loop = true;
     }
 
     public void NextSong()

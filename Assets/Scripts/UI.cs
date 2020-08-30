@@ -21,7 +21,7 @@ public class UI : MonoBehaviour
     private GridManager gridM;
 
     //Timer
-    float l_Time = 120;
+    public float l_Time = 120;
     [SerializeField] Text t_Text;
     [SerializeField] Text score_Text;
     [SerializeField] GameObject t_Size;
@@ -54,7 +54,7 @@ public class UI : MonoBehaviour
         if (_check != _turnAccess._turns)
         {
             _check = _turnAccess._turns;
-            _turnsUsed.text = "Turns Used \n \n" + "<b>" + _check + "</b> /" + maxTurns;
+            _turnsUsed.text = "<b>" + _check + "</b> /" + maxTurns;
         }
     }
 

@@ -85,30 +85,30 @@ public class GridManager : MonoBehaviour
             {
                 if(row == 0 && col == 0) //prevents first square from being blank
                 {
-                    GameObject tile = (GameObject)Instantiate(Tiles[Random.Range(0, Tiles.Length-1)], transform);
+                    GameObject tile = (GameObject)Instantiate(Tiles[Random.Range(0, Tiles.Length-2)], transform);
                     float posX = col * tileSize;
                     float posY = row * -tileSize;
-                    tile.transform.localScale = Vector3.one;
+                    //tile.transform.localScale = Vector3.one;
                     tile.transform.position = new Vector2(posX, posY);
                     tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
                     board[row, col] = tile;
                 }
                 else if(row == rows - 1 && col == cols - 1) //prevents bottom left square from being blank
                 {
-                    GameObject tile = (GameObject)Instantiate(Tiles[Random.Range(0, Tiles.Length-1)], transform);
+                    GameObject tile = (GameObject)Instantiate(Tiles[Random.Range(0, Tiles.Length-2)], transform);
                     float posX = col * tileSize;
                     float posY = row * -tileSize;
-                    tile.transform.localScale = Vector3.one;
+                    //tile.transform.localScale = Vector3.one;
                     tile.transform.position = new Vector2(posX, posY);
                     tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
                     board[row, col] = tile;
                 }
                 else
                 {
-                    GameObject tile = (GameObject)Instantiate(Tiles[Random.Range(0, Tiles.Length)], transform);
+                    GameObject tile = (GameObject)Instantiate(Tiles[Random.Range(0, Tiles.Length-1)], transform);
                     float posX = col * tileSize;
                     float posY = row * -tileSize;
-                    tile.transform.localScale = Vector3.one;
+                    //tile.transform.localScale = Vector3.one;
                     tile.transform.position = new Vector2(posX, posY);
                     tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
                     board[row, col] = tile;
@@ -175,7 +175,7 @@ public class GridManager : MonoBehaviour
                     board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1] = (GameObject)Instantiate(/*referenceTile*/ Tiles[Random.Range(0, Tiles.Length - 1)], transform);
                     float posX = col * tileSize;
                     float posY = row * -tileSize;
-                    board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1].transform.localScale = Vector3.one;
+                    //board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1].transform.localScale = Vector3.one;
                     board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1].transform.position = new Vector2(posX, posY);
                     board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1].name = "C" + col + "R" + row + " " + board[row, col].GetComponent<Tiles>().adjacentTile[board[row, col].GetComponent<Tiles>().adjacentTile.Count - 1].GetComponent<SpriteRenderer>().sprite.name.ToString();
                     //board[row, col] = tile;

@@ -80,12 +80,14 @@ public class MainMenuSelector : MonoBehaviour
                 if (Input.GetAxisRaw("Vertical") > 0.1f && canMove && menuSelection > 0)
                 {
                     menuSelection--;
+                    AudioMan.a_Instance.PlayOneShotByName("UI_Move");
                     pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
                     canMove = false;
                 }
                 else if (Input.GetAxisRaw("Vertical") < -0.1f && canMove && menuSelection < menuButtons.Length - 1)
                 {
                     menuSelection++;
+                    AudioMan.a_Instance.PlayOneShotByName("UI_Move");
                     pointer.transform.position = new Vector2(menuButtons[menuSelection].transform.position.x + 3, menuButtons[menuSelection].transform.position.y);
                     canMove = false;
                 }
@@ -100,6 +102,7 @@ public class MainMenuSelector : MonoBehaviour
                 {
                     if (menuSelection == 0)
                     {
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         mainMenu_Anim.SetBool("Up", false);
                         playSelection = 0;
                         StartCoroutine(SetPlayCursor());
@@ -110,6 +113,7 @@ public class MainMenuSelector : MonoBehaviour
                     }
                     else if (menuSelection == 1)
                     {
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         mainMenu_Anim.SetBool("Up", false);
                         optionRow = 0;
                         optionCol = 0;
@@ -141,6 +145,7 @@ public class MainMenuSelector : MonoBehaviour
                     }
                     else if (menuSelection == 2)
                     {
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         mainMenu_Anim.SetBool("Up", false);
                         StartCoroutine(QuitTimer());
                     }
@@ -156,12 +161,14 @@ public class MainMenuSelector : MonoBehaviour
                 if (Input.GetAxisRaw("Vertical") > 0.1f && canMove && playSelection > 0)
                 {
                     playSelection--;
+                    AudioMan.a_Instance.PlayOneShotByName("UI_Move");
                     pointer.transform.position = new Vector2(playButtons[playSelection].transform.position.x + 2, playButtons[playSelection].transform.position.y);
                     canMove = false;
                 }
                 else if (Input.GetAxisRaw("Vertical") < -0.1f && canMove && playSelection < playButtons.Length - 1)
                 {
                     playSelection++;
+                    AudioMan.a_Instance.PlayOneShotByName("UI_Move");
                     pointer.transform.position = new Vector2(playButtons[playSelection].transform.position.x + 2, playButtons[playSelection].transform.position.y);
                     canMove = false;
                 }
@@ -176,14 +183,17 @@ public class MainMenuSelector : MonoBehaviour
                 {
                     if(playSelection == 0)
                     {
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         SceneManager.LoadScene(2); // have first scene in build index 2
                     }
                     else if(playSelection == 1)
                     {
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         SceneManager.LoadScene(1); // have random scene in build index 1
                     }
                     else if(playSelection == 2)
                     {
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         currentMenu = Menu.main;
                         StartCoroutine(SetMenuCursor());
                         s_Anim.SetBool("drop", false);
@@ -199,12 +209,14 @@ public class MainMenuSelector : MonoBehaviour
                     if (Input.GetAxisRaw("Horizontal") > 0.1f && canMove && optionCol < rowsButtons.Length - 1)
                     {
                         optionCol++;
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Move");
                         pointer.transform.position = new Vector2(rowsButtons[optionCol].transform.position.x, rowsButtons[optionCol].transform.position.y);
                         canMove = false;
                     }
                     else if (Input.GetAxisRaw("Horizontal") < -0.1f && canMove && optionCol > 0)
                     {
                         optionCol--;
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Move");
                         pointer.transform.position = new Vector2(rowsButtons[optionCol].transform.position.x, rowsButtons[optionCol].transform.position.y);
                         canMove = false;
                     }
@@ -216,6 +228,7 @@ public class MainMenuSelector : MonoBehaviour
 
                     if(Input.GetKeyDown(KeyCode.Space))
                     {
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         if (optionCol == 0)
                             option.SetRows(3);
                         else if (optionCol == 1)
@@ -233,12 +246,14 @@ public class MainMenuSelector : MonoBehaviour
                     if (Input.GetAxisRaw("Horizontal") > 0.1f && canMove && optionCol < rowsButtons.Length - 1)
                     {
                         optionCol++;
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Move");
                         pointer.transform.position = new Vector2(speedButtons[optionCol].transform.position.x + 1, speedButtons[optionCol].transform.position.y);
                         canMove = false;
                     }
                     else if (Input.GetAxisRaw("Horizontal") < -0.1f && canMove && optionCol > 0)
                     {
                         optionCol--;
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Move");
                         pointer.transform.position = new Vector2(speedButtons[optionCol].transform.position.x + 1, speedButtons[optionCol].transform.position.y);
                         canMove = false;
                     }
@@ -250,6 +265,7 @@ public class MainMenuSelector : MonoBehaviour
 
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         if (optionCol == 0)
                             option.SetSpeed(0.2f);
                         else if (optionCol == 1)
@@ -266,6 +282,7 @@ public class MainMenuSelector : MonoBehaviour
                 {
                     if(Input.GetKeyDown(KeyCode.Space))
                     {
+                        AudioMan.a_Instance.PlayOneShotByName("UI_Select");
                         currentMenu = Menu.main;
                         StartCoroutine(SetMenuCursor());
                         p_Anim.SetBool("drop", false);

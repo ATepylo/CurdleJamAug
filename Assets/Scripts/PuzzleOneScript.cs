@@ -66,7 +66,7 @@ public class PuzzleOneScript : MonoBehaviour
                 GameObject tile = (GameObject)Instantiate(/*referenceTile*/ Tiles[timesThrough], transform);
                 float posX = col * tileSize;
                 float posY = row * -tileSize;
-                tile.transform.localScale = Vector3.one;
+                //tile.transform.localScale = Vector3.one;
                 tile.transform.position = new Vector2(posX, posY);
                 tile.name = "C" + col + "R" + row + " " + tile.GetComponent<SpriteRenderer>().sprite.name.ToString();
                 board[row, col] = tile;

@@ -55,11 +55,23 @@ MonoBehaviour:
   sfx:
   - name: Turn
     clip: {fileID: 8300000, guid: 3cb0b7a3b3f91324187131b34484e76d, type: 3}
+  - name: UI_Back
+    clip: {fileID: 8300000, guid: 634da2304c366b34face965519aef10c, type: 3}
+  - name: UI_Select
+    clip: {fileID: 8300000, guid: 81ee2e8d526320746ba9a26dc17f240b, type: 3}
+  - name: UI_Move
+    clip: {fileID: 8300000, guid: 9985d79ebb382e7489b2487642022930, type: 3}
   lvl_Music:
   - name: Menu
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 63365d3e854e8124cbb8db892d716e52, type: 3}
   - name: LevelOne
+    clip: {fileID: 8300000, guid: 0ba1671ee13110949a792771cc8e726f, type: 3}
+  - name: LevelTwo
     clip: {fileID: 8300000, guid: faaa7481e9c2c164c932b274d24333bc, type: 3}
+  - name: LevelThree
+    clip: {fileID: 8300000, guid: faaa7481e9c2c164c932b274d24333bc, type: 3}
+  - name: Random
+    clip: {fileID: 8300000, guid: bcc81ad3774e3904bbf44e22bcbfac7d, type: 3}
 --- !u!1 &5965695368162225280
 GameObject:
   m_ObjectHideFlags: 0

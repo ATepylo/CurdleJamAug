@@ -46,8 +46,8 @@ public class Tiles : MonoBehaviour
         return entryPoints.Length;
     }
 
-    public void Rotate()
-    {
-        transform.rotation *= Quaternion.Euler(0, 0, -90);
-    }
+    //public void Rotate()
+    //{
+    //    transform.rotation *= Quaternion.Euler(0, 0, -90);
+    //}
 }

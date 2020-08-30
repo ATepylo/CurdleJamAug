@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1666661089045811891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8248799841416919082}
+  - component: {fileID: 6040685357032701104}
+  m_Layer: 0
+  m_Name: Smoke Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8248799841416919082
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666661089045811891}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.14899996, y: 0.36, z: 0}
+  m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6372697889827762856}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6040685357032701104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666661089045811891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ebd069f02d6a9f499d6516a2a9c2400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoke:
+  - {fileID: 6708017199759803708, guid: 9b2be24153caa8d4cab1decc82ac3557, type: 3}
+  - {fileID: 4337906984811284433, guid: fdae5738b86a6594482f9906c49b7612, type: 3}
+  - {fileID: 551865801044080865, guid: 6e5bfa7a4ee360848ad5bf4be69583b9, type: 3}
 --- !u!1 &6372697889827762853
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,10 +75,11 @@ Transform:
   m_GameObject: {fileID: 6372697889827762853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.77, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1}
   m_Children:
   - {fileID: 6372697890330116655}
   - {fileID: 6372697890992331052}
+  - {fileID: 8248799841416919082}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -74,7 +122,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e1a2d8d59146ebb47a6795d82c32c1c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3546fb0b719c8c841a84d1b2b03a39ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +151,6 @@ MonoBehaviour:
   - {fileID: 6372697890992331052}
   centre: {fileID: 6372697889827762856}
   sprite: {fileID: 0}
-  beetIsOn: 0
   maxTurns: 0
   turns: 0
   isGoal: 0
@@ -125,7 +172,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 0.59375, y: 0.65625}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
