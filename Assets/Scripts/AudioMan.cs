@@ -42,19 +42,29 @@ public class AudioMan : MonoBehaviour
     }
     private void OnEnable()
     {
-        //if(SceneManager.GetActiveScene().ToString() == "MenuScene")
-        //{
-        //    StartCoroutine(PlayMusic("Menu"));
+        if(SceneManager.GetActiveScene().name == "MenuScene")
+        {
+            StartCoroutine(PlayMusic("Menu"));
 
-        //}
-        //if (SceneManager.GetActiveScene().ToString() == "PuzzleOne")
-        //{
-        //    StartCoroutine(PlayMusic("LevelOne"));
-        //}
-        //if (SceneManager.GetActiveScene().ToString() == "movetesting")
-        //{
-            StartCoroutine(PlayMusic("Random"));
-        //}
+        }
+        else if (SceneManager.GetActiveScene().name == "PuzzleOne")
+        {
+            StartCoroutine(PlayMusic("LevelOne"));
+
+        }
+        else if (SceneManager.GetActiveScene().name == "PuzzleTwo")
+        {
+            StartCoroutine(PlayMusic("LevelTwo"));
+
+        }
+        else if (SceneManager.GetActiveScene().name == "PuzzleX")
+        {
+            StartCoroutine(PlayMusic("LevelThree"));
+
+        }
+        else
+        StartCoroutine(PlayMusic("Random"));
+        
     }
     private void Update()
     {
