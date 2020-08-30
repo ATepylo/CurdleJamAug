@@ -44,6 +44,7 @@ public class MainMenuSelector : MonoBehaviour
     [SerializeField] Animator p_Anim;
     [SerializeField] Animator s_Anim;
     [SerializeField] Animator mainMenu_Anim;
+    [SerializeField] Animator credits_Anim;
     // Start is called before the first frame update
     void Start()
     {
