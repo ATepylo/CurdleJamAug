@@ -491,7 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e02d314d8159a4c94f9fbdf977848b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backGround: {fileID: 0}
+  backGround: {fileID: 1425436519}
   edgeBushes: {fileID: 967563453}
 --- !u!20 &519420031
 Camera:
@@ -1970,7 +1970,7 @@ PrefabInstance:
     - target: {fileID: 4582239083951203301, guid: 9c21a716ddecb3f40b0bf5f5b4815d15,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4582239083951203305, guid: 9c21a716ddecb3f40b0bf5f5b4815d15,
         type: 3}
