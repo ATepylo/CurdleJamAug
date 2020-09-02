@@ -32,26 +32,8 @@ public class Friend : MonoBehaviour
         startStatus = currentStatus;
         startLocation = transform.position;
         speed = Mathf.Min(speed, beet.GetSpeed() - 0.1f);
-
-        //once all of the prefabs are updated with new settings this will no longer require a switch statement
-
-        switch (friend)
-        {
-            case FriendVeg.Carrot:
-                _anim = GetComponentInChildren<Animator>();
-                _rend = GetComponentInChildren<SpriteRenderer>();
-                break;
-            case FriendVeg.Tomato:
-                break;
-            case FriendVeg.Pea:
-                _anim = GetComponentInChildren<Animator>();
-                _rend = GetComponentInChildren<SpriteRenderer>();
-                break;
-            case FriendVeg.Onion:
-                break;
-            default:
-                break;
-        }
+        _anim = GetComponentInChildren<Animator>();
+        _rend = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -67,21 +49,8 @@ public class Friend : MonoBehaviour
                 break;
 
             case Status.following:
-                switch (friend)
-                {
-                    case FriendVeg.Carrot:
-                        _anim.SetBool("Run", true);
-                        break;
-                    case FriendVeg.Tomato:
-                        break;
-                    case FriendVeg.Pea:
-                        _anim.SetBool("Run", true);
-                        break;
-                    case FriendVeg.Onion:
-                        break;
-                    default:
-                        break;
-                }
+                _anim.SetBool("Run", true);
+
                 transform.position = Vector2.MoveTowards(transform.position, beet.GetFollowLoc(), (beet.GetSpeed() - speed) * Time.deltaTime);
                 if (beet.transform.position.x < transform.position.x) _rend.flipX = true;
                 else if (beet.transform.position.x > transform.position.x) _rend.flipX = false;
